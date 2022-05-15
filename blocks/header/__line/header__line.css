@@ -1,0 +1,6 @@
+.header__line {
+  display: inline;
+  height: 1px;
+  background-color: var(--color_gray);
+  opacity: .7;
+}

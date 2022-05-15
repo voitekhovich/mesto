@@ -1,0 +1,7 @@
+.element__container {
+  color: var(--color_black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 79px;
+}

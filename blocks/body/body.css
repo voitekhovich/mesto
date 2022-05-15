@@ -1,0 +1,13 @@
+:root {
+  --color_black: #000;
+  --color_white: #fff;
+  --color_gray: #545454;
+}
+
+.body {
+  background-color: var(--color_black);
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color_white);
+}
