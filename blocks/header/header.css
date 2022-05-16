@@ -5,3 +5,13 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+
+@media screen and (max-width: 1079px) {
+  .header {
+    height: 56px;
+    margin-top: 28px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

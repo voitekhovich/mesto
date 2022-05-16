@@ -11,3 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   color: var(--color_white);
 }
+
+* {
+  outline: 1px solid rgba(255, 0, 0, .2);
+}
