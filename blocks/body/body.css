@@ -11,6 +11,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color_white);
+  /* overflow: hidden; */
 }
 
 /* * {

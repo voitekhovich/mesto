@@ -1,0 +1,10 @@
+.popup__button {
+  height: 50px;
+  margin-top: 48px;
+  background-color: var(--color_black);
+  color: var(--color_white);
+}
+
+.form__button[type="submit"] {
+  background-color: var(--color_black);
+}
