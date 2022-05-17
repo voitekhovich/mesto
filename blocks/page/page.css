@@ -9,3 +9,12 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+.item-hover {
+  opacity: 1;
+  transition: opacity .2s;
+}
+
+.item-hover:hover {
+  opacity: .6;
+}
