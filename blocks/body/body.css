@@ -10,7 +10,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color_white);
+  display: grid;
+  grid-template-columns: 1fr minmax(19px, 200px) minmax(320px, 880px) minmax(19px, 200px) 1fr;
+
 }
+
+.text_nowrap {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+} 
 
 * {
   outline: 1px solid rgba(255, 0, 0, .2);
