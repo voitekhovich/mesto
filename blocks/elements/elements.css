@@ -1,16 +1,19 @@
 .elements{
-  margin: 51px 200px 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  margin: 51px 19px 0;
+  /* padding: 0 19px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px 17px;
-  justify-items: center;
+  /* max-width: 880px; */
 }
 
 
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: 1023px) {
   .elements {
     margin-top: 28px;
-    margin-right: 19px;
-    margin-left: 19px;
+    /* margin-right: 19px;
+    margin-left: 19px; */
   }
 }

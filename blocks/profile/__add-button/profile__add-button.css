@@ -7,13 +7,30 @@
   height: 50px;
   border: 2px solid var(--color_white);
   border-radius: 2px;
+  box-sizing: border-box;
+  grid-column-start: 4;
 }
 
-
-@media screen and (max-width: 1079px) {
+/* @media screen and (max-width: 1023px) {
   .profile__add-button {
     margin-top: 36px;
     margin-left: 0;
     width: 282px;
+    justify-self: center;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+} */
+
+@media screen and (max-width: 767px) {
+  .profile__add-button {
+    margin-top: 36px;
+    margin-left: 0;
+    width: 282px;
+    justify-self: center;
+    grid-row-start: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
   }
 }
