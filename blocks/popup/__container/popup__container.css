@@ -9,6 +9,12 @@
   color: var(--color_black);
   display: flex;
   flex-direction: column;
-  padding: 0 36px;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+  }
 }
