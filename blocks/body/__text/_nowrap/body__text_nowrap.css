@@ -1,0 +1,5 @@
+.body__text_nowrap {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

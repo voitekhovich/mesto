@@ -1,7 +1,7 @@
 .element__container {
-  height: 79px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--color_black);
+  padding: 24px 20px 24px 21px;
 }

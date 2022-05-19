@@ -3,18 +3,3 @@
   min-width: 320px;
   margin: 0 auto;
 }
-
-.text-nowrap {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.item-hover {
-  opacity: 1;
-  transition: opacity .2s;
-}
-
-.item-hover:hover {
-  opacity: .6;
-}

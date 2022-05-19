@@ -2,19 +2,19 @@ const page = document.querySelector('.page');
 
 const profile = page.querySelector('.profile');
 const profileEditBtn = profile.querySelector('.profile__edit-button')
-let profileName = profile.querySelector('.profile__name');
-let profileAbout = profile.querySelector('.profile__about');
+const profileName = profile.querySelector('.profile__name');
+const profileAbout = profile.querySelector('.profile__about');
 
 const popup = document.querySelector('.popup');
-const formCloseBtn = popup.querySelector('.form__close');
-const formSaveBtn = popup.querySelector('.form__save');
-let editName = popup.querySelector('.form__name');
-let editAbout = popup.querySelector('.form__about');
+const formCloseBtn = popup.querySelector('.popup__close');
+const formSaveBtn = popup.querySelector('.popup__button');
+const editName = popup.querySelector('.popup__item_name');
+const editAbout = popup.querySelector('.popup__item_about');
 
 function openPopup() {
-  popup.classList.add('popup_visible');
   editName.value = profileName.textContent;
   editAbout.value = profileAbout.textContent;
+  popup.classList.add('popup_visible');
 }
 
 function closePopup() {
@@ -23,9 +23,7 @@ function closePopup() {
 
 function savePopup(evt) {  
   evt.preventDefault();
-  if (editName.value !== '') {
-    profileName.textContent = editName.value;
-  }
+  profileName.textContent = editName.value;
   profileAbout.textContent = editAbout.value;
   closePopup()
 }

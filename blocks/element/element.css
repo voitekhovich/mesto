@@ -1,6 +1,5 @@
 .element {
   width: 282px;
-  height: 361px;
   background-color: var(--color_white);
   border-radius: 10px;
 }

@@ -7,74 +7,76 @@
   <title>Mesto Russia</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="body">
+<body class="body body__text">
 
   <div class="page">
 
     <header class="header">
-      <a href="#" class="header__logo item-hover"></a>
-      <div class="header__line"></div>
+      <a href="#" class="header__logo button_hover"></a>
     </header>
     
-    <section class="profile">
-      <img src="./images/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
-      <div class="profile__info">
-        <div class="profile__name-line">
-          <h1 class="profile__name text-nowrap">Жак-Ив Кусто</h1>
-          <div class="profile__edit-button item-hover"></div>  
+    <main>
+      <section class="profile">
+        <img src="./images/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+        <div class="profile__info">
+          <div class="profile__name-line">
+            <h1 class="profile__name body__text_nowrap">Жак-Ив Кусто</h1>
+            <button class="button profile__edit-button button_hover" type="button"
+                    aria-label="Редактировать профиль"></button>
+          </div>
+          <p class="profile__about body__text_nowrap">Исследователь океана</p>
         </div>
-        <p class="profile__about text-nowrap">Исследователь океана</p>
-      </div>
-      <div class="profile__add-button item-hover"></div>
-    </section>
-
-    <section>
-      <ul class="elements">
-        <li class="element">
-          <img src="./images/elements/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Карачаевск</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elements/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Гора Эльбрус</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elements/dombai.jpg" alt="Домбай" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Домбай</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elements/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Гора Эльбрус</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elements/dombai.jpg" alt="Домбай" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Домбай</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/elements/karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image">
-          <div class="element__container">
-            <h2 class="element__title text-nowrap">Карачаево-Черкесия</h2>
-            <div class="element__like item-hover"></div>
-          </div>
-        </li>
-      </ul>
-    </section>
-
+        <button class="button profile__add-button button_hover" type="button" aria-label="Добавить место"></button>
+      </section>
+  
+      <section>
+        <ul class="elements">
+          <li class="element">
+            <img src="./images/elements/karachaevsk.jpg" alt="Карачаевск" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Карачаевск</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/elements/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Гора Эльбрус</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/elements/dombai.jpg" alt="Домбай" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Домбай</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/elements/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Гора Эльбрус</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/elements/dombai.jpg" alt="Домбай" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Домбай</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/elements/karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image">
+            <div class="element__container">
+              <h2 class="element__title body__text_nowrap">Карачаево-Черкесия</h2>
+              <button class="button element__like button_hover" type="button" arial-label="Нравится"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
@@ -82,16 +84,19 @@
   </div>
 
   <div class="popup">
-    <div class="popup__container form">
-      <div class="form__close item-hover"></div>
-      <form class="form__container">
-        <h2 class="form__heading">Редактировать профиль</h2>
-        <fieldset class="form__fieldset">
-          <input class="form__item form__name" type="text" placeholder="Имя" required>
-          <input class="form__item form__about" type="text" placeholder="О себе" required>
-        </fieldset>
-        <button class="form__button form__save item-hover" type="submit">Сохранить</button>
-      </form>
+    <div class="popup__container">
+        <button class="button popup__close button_hover" type="button"
+              aria-label="Закрыть окно редактирования профиля"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <form name="editForm">
+          <fieldset class="popup__fieldset">
+            <input class="popup__item popup__item_name"
+                   type="text" name="inputName" placeholder="Имя" required>
+            <input class="popup__item popup__item_about"
+                   type="text" name="inputAbout" placeholder="О себе" required>
+          </fieldset>
+          <button class="button popup__button button_hover" type="submit">Сохранить</button>
+        </form>      
     </div>
   </div>
 
