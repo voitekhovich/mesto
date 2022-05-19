@@ -2,12 +2,12 @@
 @import url(../vendor/fonts/Inter/inter.css);
 
 @import url(../blocks/body/body.css);
+@import url(../blocks/body/__button-hover/body__button-hover.css);
 
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__text-nowrap/page__text-nowrap.css);
 
 @import url(../blocks/button/button.css);
-@import url(../blocks/button/__hover/button__hover.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
