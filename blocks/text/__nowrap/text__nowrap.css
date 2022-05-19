@@ -1,4 +1,4 @@
-.text_wrap_no {
+.text__nowrap {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

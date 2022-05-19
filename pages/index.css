@@ -3,10 +3,10 @@
 
 @import url(../blocks/body/body.css);
 @import url(../blocks/page/page.css);
-@import url(../blocks/text/_wrap/text_wrap_no.css);
+@import url(../blocks/text/__nowrap/text__nowrap.css);
 
 @import url(../blocks/button/button.css);
-@import url(../blocks/button/_overlay/button_overlay_hover.css);
+@import url(../blocks/button/__hover/button__hover.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);

@@ -1,8 +1,8 @@
-.button_overlay_hover {
+.button__hover {
   cursor: pointer;
   transition: opacity .2s;
 }
 
-.button_overlay_hover:hover {
+.button__hover:hover {
   opacity: .6;
 }
