@@ -1,17 +1,17 @@
 # Проект: Место
 
-### Обзор
+## Описание
 
-* Figma
-* Картинки
+Сервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их, ставить лайки и редактировать профиль.
 
-**Figma**
+![Проект: Место](./images/preview.jpg)
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+## Используемые технологии
 
-**Картинки**
+* HTML CSS JS
+* Адаптивная вёрстка по [макету в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* Структура кода по [методолотгии БЭМ](https://ru.bem.info/methodology/)
+* [Оптимизация картинок](https://tinypng.com/)
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+## GitHub Pages
+https://voitekhovich.github.io/mesto/
