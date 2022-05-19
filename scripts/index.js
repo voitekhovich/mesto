@@ -23,7 +23,9 @@ function closePopup() {
 
 function savePopup(evt) {  
   evt.preventDefault();
-  profileName.textContent = editName.value;
+  if (editName.value !== '') {
+    profileName.textContent = editName.value;
+  }
   profileAbout.textContent = editAbout.value;
   closePopup()
 }
