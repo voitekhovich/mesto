@@ -1,8 +1,8 @@
-.page__button-hover {
+.button__hover {
   cursor: pointer;
   transition: opacity .2s;
 }
 
-.page__button-hover:hover {
+.button__hover:hover {
   opacity: .6;
 }
