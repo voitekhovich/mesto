@@ -8,8 +8,8 @@ const profileAbout = profile.querySelector('.profile__about');
 const popup = document.querySelector('.popup');
 const formCloseBtn = popup.querySelector('.popup__close');
 const formSaveBtn = popup.querySelector('.popup__button');
-const editName = popup.querySelector('.popup__item_name');
-const editAbout = popup.querySelector('.popup__item_about');
+const editName = popup.querySelector('.popup__item_type_name');
+const editAbout = popup.querySelector('.popup__item_type_about');
 
 function openPopup() {
   editName.value = profileName.textContent;
