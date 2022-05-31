@@ -27,46 +27,29 @@ const initialCards = [
 
 const page = document.querySelector('.page');
 
-const profile = page.querySelector('.profile');
-const profileEditBtn = profile.querySelector('.profile__edit-button')
-const profileName = profile.querySelector('.profile__name');
-const profileAbout = profile.querySelector('.profile__about');
-
-const popupEdit = document.querySelector('.popup__form_type_edit');
-const formCloseBtn = popupEdit.querySelector('.popup__close');
-const formSaveBtn = popupEdit.querySelector('.popup__button');
-const editName = popupEdit.querySelector('.popup__item_type_name');
-const editAbout = popupEdit.querySelector('.popup__item_type_about');
-
 const elementTemplate = document.querySelector('#element').content;
 const elements = page.querySelector('.elements');
 
-const profileAddBtn = profile.querySelector('.profile__add-button');
-const popupAdd = document.querySelector('.popup__form_type_add');
-const formAddCloseBtn = popupAdd.querySelector('.popup__close');
-const formAddSaveBtn = popupAdd.querySelector('.popup__button');
-const editAddTitle = popupAdd.querySelector('.popup__item_type_title');
-const editAddUrl = popupAdd.querySelector('.popup__item_type_url');
+const profile = page.querySelector('.profile');
+const profileName = profile.querySelector('.profile__name');
+const profileAbout = profile.querySelector('.profile__about');
+const profileButtonEdit = profile.querySelector('.profile__edit-button')
+const profileButtonAdd = profile.querySelector('.profile__add-button');
 
-const imagebox = document.querySelector('.popup__image');
+const popupFormEdit = document.querySelector('.popup__form_type_edit');
+const formEditButtonClose = popupFormEdit.querySelector('.popup__close');
+const formEditButtonSave = popupFormEdit.querySelector('.popup__button');
+const formEditInputName = popupFormEdit.querySelector('.popup__item_type_name');
+const formEditInputAbout = popupFormEdit.querySelector('.popup__item_type_about');
 
-// Попап редактирование профиля
+const popupFormAdd = document.querySelector('.popup__form_type_add');
+const formAddButtonClose = popupFormAdd.querySelector('.popup__close');
+const formAddButtonSave = popupFormAdd.querySelector('.popup__button');
+const formAddInputTitle = popupFormAdd.querySelector('.popup__item_type_title');
+const formAddInputLink = popupFormAdd.querySelector('.popup__item_type_link');
 
-function openPopup() {
-  editName.value = profileName.textContent;
-  editAbout.value = profileAbout.textContent;
-  popupEdit.classList.add('popup_visible');
-}
-
-function savePopup(evt) {  
-  evt.preventDefault();
-  profileName.textContent = editName.value;
-  profileAbout.textContent = editAbout.value;
-  closePopup()
-}
-
-profileEditBtn.addEventListener('click', openPopup);
-formSaveBtn.addEventListener('click', savePopup);
+const popupImage = document.querySelector('.popup__image');
+const formImageButtonClose = popupImage.querySelector('.popup__close');
 
 // Наполнение страницы карточками
 
@@ -82,10 +65,10 @@ function addElement(item) {
     element.remove(evt.target.parentElement);
   });
   element.querySelector('.element__image').addEventListener('click', function (evt) {
-    imagebox.querySelector('.imagebox__img').src = item.link;
-    imagebox.querySelector('.imagebox__img').alt = item.name;
-    imagebox.querySelector('.imagebox__caption').alt = item.name;
-    imagebox.classList.add('popup_visible');
+    popupImage.querySelector('.imagebox__img').src = item.link;
+    popupImage.querySelector('.imagebox__img').alt = item.name;
+    popupImage.querySelector('.imagebox__caption').textContent = item.name;
+    popupImage.classList.add('popup_visible');
   });
 
   return element;
@@ -95,31 +78,60 @@ for (const item of initialCards) {
   elements.append(addElement(item));
 }
 
-// Попап добавления нового места
+// Попап редактирование профиля
+
+function openPopupEdit() {
+  formEditInputName.value = profileName.textContent;
+  formEditInputAbout.value = profileAbout.textContent;
+  popupFormEdit.classList.add('popup_visible');
+}
+
+function closePopupEdit() {
+  popupFormEdit.classList.remove('popup_visible');
+}
+
+function savePopupEdit(evt) {  
+  evt.preventDefault();
+  profileName.textContent = formEditInputName.value;
+  profileAbout.textContent = formEditInputAbout.value;
+  closePopupEdit()
+}
+
+profileButtonEdit.addEventListener('click', openPopupEdit);
+formEditButtonClose.addEventListener('click', closePopupEdit);
+formEditButtonSave.addEventListener('click', savePopupEdit);
+
+// Попап добавления карточки
 
 function openPopupAdd() {
-  editAddTitle.value = 'Вид на горы';
-  editAddUrl.value = 'https://images.unsplash.com/photo-1653754070622-0d6041a063cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60';
-  popupAdd.classList.add('popup_visible');
+  formAddInputTitle.value = 'Вид на горы';
+  formAddInputLink.value = 'https://images.unsplash.com/photo-1653754070622-0d6041a063cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60';
+  popupFormAdd.classList.add('popup_visible');
+}
+
+function closePopupAdd() {
+  popupFormAdd.classList.remove('popup_visible');
 }
 
 function savePopupAdd(evt) {  
   evt.preventDefault();
-  const item = {}
-  item.name = editAddTitle.value;
-  item.link = editAddUrl.value;
-  elements.prepend(addElement(item));
+  elements.prepend(addElement(
+    {
+      name: formAddInputTitle.value,
+      link: formAddInputLink.value,
+    }
+  ));
   closePopupAdd()
 }
 
-profileAddBtn.addEventListener('click', openPopupAdd);
-formAddSaveBtn.addEventListener('click', savePopupAdd);
+profileButtonAdd.addEventListener('click', openPopupAdd);
+formAddButtonClose.addEventListener('click', closePopupAdd);
+formAddButtonSave.addEventListener('click', savePopupAdd);
 
+// Попап c картинкой
 
-const popups = document.querySelectorAll('.popup');
-
-for (const popupClose of popups) {
-  popupClose.addEventListener('click', function(evt) {
-    evt.target.parentElement.parentElement.classList.remove('popup_visible');
-  })
+function closePopupImage() {
+  popupImage.classList.remove('popup_visible');
 }
+
+formImageButtonClose.addEventListener('click', closePopupImage);

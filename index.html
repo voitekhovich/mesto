@@ -29,7 +29,7 @@
         <button class="button profile__add-button body__button-hover" type="button" aria-label="Добавить место"></button>
       </section>
   
-      <section>
+      <section aria-label="Блок с карточками">
         <ul class="elements"></ul>
       </section>
     </main>
@@ -62,12 +62,12 @@
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
-        <form name="editForm">
+        <form name="addForm">
           <fieldset class="popup__fieldset">
             <input class="popup__item popup__item_type_title"
-                   type="text" name="inputName" placeholder="Название" required>
-            <input class="popup__item popup__item_type_url"
-                   type="text" name="inputAbout" placeholder="Ссылка на картинку" required>
+                   type="text" name="inputTitle" placeholder="Название" required>
+            <input class="popup__item popup__item_type_link"
+                   type="text" name="inputLink" placeholder="Ссылка на картинку" required>
           </fieldset>
           <button class="button popup__button body__button-hover" type="submit">Создать</button>
         </form>      
@@ -75,12 +75,12 @@
   </div>
 
   <div class="popup popup__image">
-    <div class="popup__container imagebox__container">
+    <div class="popup__container imagebox">
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно с картинкой"></button>
-        <figure class="imagebox" >
-          <img class="imagebox__img imagebox__item_type_img" src="" alt=""/>
-          <figcaption class="imagebox__caption">ваша полка — верхняя</figcaption>
+        <figure class=" imagebox__container" >
+          <img class="imagebox__img imagebox__item_type_img" src="#" alt=""/>
+          <figcaption class="imagebox__caption page__text-nowrap"></figcaption>
         </figure>
     </div>
   </div>
@@ -95,7 +95,6 @@
       </div>
     </li>
   </template>
-  
 
   <script src="./scripts/index.js"></script>
 
