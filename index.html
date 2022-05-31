@@ -74,9 +74,21 @@
     </div>
   </div>
 
+  <div class="popup popup__image">
+    <div class="popup__container imagebox__container">
+        <button class="button popup__close body__button-hover" type="button"
+              aria-label="Закрыть окно с картинкой"></button>
+        <figure class="imagebox" >
+          <img class="imagebox__img imagebox__item_type_img" src="" alt=""/>
+          <figcaption class="imagebox__caption">ваша полка — верхняя</figcaption>
+        </figure>
+    </div>
+  </div>
+
   <template id="element">
     <li class="element">
       <img src="" alt="" class="element__image">
+      <button class="button element__trash body__button-hover" type="button" aria-label="Удалить"></button>
       <div class="element__container">
         <h2 class="element__title page__text-nowrap"></h2>
         <button class="button element__like body__button-hover" type="button" aria-label="Нравится"></button>

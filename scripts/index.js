@@ -48,16 +48,14 @@ const formAddSaveBtn = popupAdd.querySelector('.popup__button');
 const editAddTitle = popupAdd.querySelector('.popup__item_type_title');
 const editAddUrl = popupAdd.querySelector('.popup__item_type_url');
 
+const imagebox = document.querySelector('.popup__image');
+
 // Попап редактирование профиля
 
 function openPopup() {
   editName.value = profileName.textContent;
   editAbout.value = profileAbout.textContent;
   popupEdit.classList.add('popup_visible');
-}
-
-function closePopup() {
-  popupEdit.classList.remove('popup_visible');
 }
 
 function savePopup(evt) {  
@@ -68,7 +66,6 @@ function savePopup(evt) {
 }
 
 profileEditBtn.addEventListener('click', openPopup);
-formCloseBtn.addEventListener('click', closePopup);
 formSaveBtn.addEventListener('click', savePopup);
 
 // Наполнение страницы карточками
@@ -80,7 +77,17 @@ function addElement(item) {
   element.querySelector('.element__title').textContent = item.name;
   element.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_active');
-  }); 
+  });
+  element.querySelector('.element__trash').addEventListener('click', function (evt) {
+    element.remove(evt.target.parentElement);
+  });
+  element.querySelector('.element__image').addEventListener('click', function (evt) {
+    imagebox.querySelector('.imagebox__img').src = item.link;
+    imagebox.querySelector('.imagebox__img').alt = item.name;
+    imagebox.querySelector('.imagebox__caption').alt = item.name;
+    imagebox.classList.add('popup_visible');
+  });
+
   return element;
 }
 
@@ -96,10 +103,6 @@ function openPopupAdd() {
   popupAdd.classList.add('popup_visible');
 }
 
-function closePopupAdd() {
-  popupAdd.classList.remove('popup_visible');
-}
-
 function savePopupAdd(evt) {  
   evt.preventDefault();
   const item = {}
@@ -110,5 +113,13 @@ function savePopupAdd(evt) {
 }
 
 profileAddBtn.addEventListener('click', openPopupAdd);
-formAddCloseBtn.addEventListener('click', closePopupAdd);
 formAddSaveBtn.addEventListener('click', savePopupAdd);
+
+
+const popups = document.querySelectorAll('.popup');
+
+for (const popupClose of popups) {
+  popupClose.addEventListener('click', function(evt) {
+    evt.target.parentElement.parentElement.classList.remove('popup_visible');
+  })
+}
