@@ -40,7 +40,7 @@
 
   </div>
 
-  <div class="popup">
+  <div class="popup popup__form_type_edit">
     <div class="popup__container">
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно редактирования профиля"></button>
@@ -57,16 +57,16 @@
     </div>
   </div>
 
-  <div class="popup" id="form">
+  <div class="popup popup__form_type_add">
     <div class="popup__container">
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
         <form name="editForm">
           <fieldset class="popup__fieldset">
-            <input class="popup__item popup__item_type_name"
+            <input class="popup__item popup__item_type_title"
                    type="text" name="inputName" placeholder="Название" required>
-            <input class="popup__item popup__item_type_about"
+            <input class="popup__item popup__item_type_url"
                    type="text" name="inputAbout" placeholder="Ссылка на картинку" required>
           </fieldset>
           <button class="button popup__button body__button-hover" type="submit">Создать</button>
