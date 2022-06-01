@@ -33,19 +33,19 @@ const profileAbout = profile.querySelector('.profile__about');
 const profileButtonEdit = profile.querySelector('.profile__edit-button')
 const profileButtonAdd = profile.querySelector('.profile__add-button');
 
-const popupFormEdit = document.querySelector('.popup__form_type_edit');
+const popupFormEdit = document.querySelector('.popup_form_edit');
 const formEditButtonClose = popupFormEdit.querySelector('.popup__close');
 const formEditButtonSave = popupFormEdit.querySelector('.popup__button');
 const formEditInputName = popupFormEdit.querySelector('.popup__item_type_name');
 const formEditInputAbout = popupFormEdit.querySelector('.popup__item_type_about');
 
-const popupFormAdd = document.querySelector('.popup__form_type_add');
+const popupFormAdd = document.querySelector('.popup_form_add');
 const formAddButtonClose = popupFormAdd.querySelector('.popup__close');
 const formAddButtonSave = popupFormAdd.querySelector('.popup__button');
 const formAddInputTitle = popupFormAdd.querySelector('.popup__item_type_title');
 const formAddInputLink = popupFormAdd.querySelector('.popup__item_type_link');
 
-const popupImage = document.querySelector('.popup__image');
+const popupImage = document.querySelector('.popup_image');
 const formImageButtonClose = popupImage.querySelector('.popup__close');
 
 // Наполнение страницы карточками
