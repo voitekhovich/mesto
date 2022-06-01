@@ -3,9 +3,9 @@
 
 @import url(../blocks/body/body.css);
 @import url(../blocks/body/__button-hover/body__button-hover.css);
+@import url(../blocks/body/__text-nowrap/body__text-nowrap.css);
 
 @import url(../blocks/page/page.css);
-@import url(../blocks/page/__text-nowrap/page__text-nowrap.css);
 
 @import url(../blocks/button/button.css);
 

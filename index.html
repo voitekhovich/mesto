@@ -20,11 +20,11 @@
         <img src="./images/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__name-line">
-            <h1 class="profile__name page__text-nowrap">Жак-Ив Кусто</h1>
+            <h1 class="profile__name body__text-nowrap">Жак-Ив Кусто</h1>
             <button class="button profile__edit-button body__button-hover" type="button"
                     aria-label="Редактировать профиль"></button>
           </div>
-          <p class="profile__about page__text-nowrap">Исследователь океана</p>
+          <p class="profile__about body__text-nowrap">Исследователь океана</p>
         </div>
         <button class="button profile__add-button body__button-hover" type="button" aria-label="Добавить место"></button>
       </section>
@@ -78,19 +78,21 @@
     <div class="popup__container imagebox">
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно с картинкой"></button>
-        <figure class=" imagebox__container" >
+        <figure class="imagebox__container" >
           <img class="imagebox__img imagebox__item_type_img" src="#" alt=""/>
-          <figcaption class="imagebox__caption page__text-nowrap"></figcaption>
+          <figcaption class="imagebox__caption"></figcaption>
         </figure>
     </div>
   </div>
+
+<!-- body__text-nowrap -->
 
   <template class="element-template">
     <li class="element">
       <img src="#" alt="#" class="element__image">
       <button class="button element__trash body__button-hover" type="button" aria-label="Удалить"></button>
       <div class="element__container">
-        <h2 class="element__title page__text-nowrap"></h2>
+        <h2 class="element__title body__text-nowrap"></h2>
         <button class="button element__like body__button-hover" type="button" aria-label="Нравится"></button>
       </div>
     </li>
