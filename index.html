@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto Russia</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script defer src="./scripts/cards.js"></script>
+  <script defer src="./scripts/index.js"></script>
 </head>
 <body class="body">
 
@@ -45,12 +47,12 @@
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно редактирования профиля"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
-        <form name="editForm">
+        <form name="edit-form">
           <fieldset class="popup__fieldset">
             <input class="popup__item popup__item_type_name"
-                   type="text" name="inputName" placeholder="Имя" required>
+                   type="text" name="input-name" placeholder="Имя" required>
             <input class="popup__item popup__item_type_about"
-                   type="text" name="inputAbout" placeholder="О себе" required>
+                   type="text" name="input-about" placeholder="О себе" required>
           </fieldset>
           <button class="button popup__button body__button-hover" type="submit">Сохранить</button>
         </form>      
@@ -62,12 +64,12 @@
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
-        <form name="addForm">
+        <form class="popup__form" name="add-form">
           <fieldset class="popup__fieldset">
             <input class="popup__item popup__item_type_title"
-                   type="text" name="inputTitle" placeholder="Название" required>
+                   type="text" name="input-title" placeholder="Название" required>
             <input class="popup__item popup__item_type_link"
-                   type="text" name="inputLink" placeholder="Ссылка на картинку" required>
+                   type="url" name="input-link" placeholder="Ссылка на картинку" required>
           </fieldset>
           <button class="button popup__button body__button-hover" type="submit">Создать</button>
         </form>      
@@ -87,9 +89,9 @@
 
 <!-- body__text-nowrap -->
 
-  <template class="element-template">
+  <template id="element-template">
     <li class="element">
-      <img src="#" alt="#" class="element__image">
+      <img src="#" alt="#" class="element__image body__button-hover">
       <button class="button element__trash body__button-hover" type="button" aria-label="Удалить"></button>
       <div class="element__container">
         <h2 class="element__title body__text-nowrap"></h2>
@@ -97,8 +99,6 @@
       </div>
     </li>
   </template>
-
-  <script src="./scripts/index.js"></script>
 
 </body>
 </html>
