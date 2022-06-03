@@ -60,23 +60,22 @@ const createElement = data => {
   return element;
 }
 
-const addElement = data => {
-  const element = createElement(data);
+const addElement = element => {
   elementsList.prepend(element);
 }
 
-initialCards.reverse().forEach(addElement);
+initialCards.reverse().forEach(data => {
+  addElement(createElement(data));
+});
 
 // Popups
 
-const getPopupByEvent = evt => evt.currentTarget.closest('.popup');
-
-const openPopup = popapName => {
-  popapName.classList.add('popup_visible');
+const openPopup = popupName => {
+  popupName.classList.add('popup_visible');
 }
 
-const closePopup = popapName => {
-  popapName.classList.remove('popup_visible');
+const closePopup = popupName => {
+  popupName.classList.remove('popup_visible');
 }
 
 // Popup редактирование профиля
@@ -107,11 +106,11 @@ function openPopupAdd() {
 
 function savePopupAdd(evt) {  
   evt.preventDefault();
-  addElement(
+  addElement(createElement(
     {
     name: formAddInputTitle.value,
     link: formAddInputLink.value,
-  });
+  }));
   closePopup(popupFormAdd);
 }
 
@@ -129,4 +128,4 @@ function openPopupImage(evt) {
   openPopup(popupImage)
 }
 
-popupImage.addEventListener('click', () => {closePopup(popupImage)});
+formImageButtonClose.addEventListener('click', () => {closePopup(popupImage)});
