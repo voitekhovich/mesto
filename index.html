@@ -47,12 +47,21 @@
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно редактирования профиля"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
-        <form name="edit-form">
+        <form name="edit-form" novalidate>
           <fieldset class="popup__fieldset">
-            <input class="popup__item popup__item_type_name"
-                   type="text" name="input-name" placeholder="Имя" required>
-            <input class="popup__item popup__item_type_about"
-                   type="text" name="input-about" placeholder="О себе" required>
+            
+            <label class="popup__field">
+              <input type="text" class="popup__item popup__item_type_name" id="input-name"
+                name="input-name" placeholder="Имя" required minlength="2" maxlength="40">
+              <span class="popup__input-error input-name-error">Error</span>
+            </label>
+
+            <label class="popup__field">
+              <input type="text" class="popup__item popup__item_type_about" id="input-about"
+                name="input-about" placeholder="Имя" required minlength="2" maxlength="200">
+              <span class="popup__input-error input-about-error">Error</span>
+            </label>
+
           </fieldset>
           <button class="button popup__button body__button-hover" type="submit">Сохранить</button>
         </form>      
@@ -64,7 +73,7 @@
         <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
-        <form class="popup__form" name="add-form">
+        <form class="popup__form" name="add-form" novalidate>
           <fieldset class="popup__fieldset">
             <input class="popup__item popup__item_type_title"
                    type="text" name="input-title" placeholder="Название" required>
