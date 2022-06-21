@@ -3,7 +3,8 @@
   --color_white: #fff;
   --color_light_gray: #C4C4C4;
   --color_gray: #545454;
-  --color_orangered: orangered;
+  --color_focus: rgb(38, 78, 255, .7);
+  --color_error: #ff0000;
 }
 
 .body {

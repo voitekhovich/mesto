@@ -16,7 +16,7 @@
     <header class="header">
       <a href="#" class="header__logo body__button-hover"></a>
     </header>
-    
+
     <main>
       <section class="profile">
         <img src="./images/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
@@ -30,64 +30,66 @@
         </div>
         <button class="button profile__add-button body__button-hover" type="button" aria-label="Добавить место"></button>
       </section>
-  
       <section aria-label="Блок с карточками">
         <ul class="elements"></ul>
       </section>
     </main>
-    
+
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
   </div>
 
-  <div class="popup popup_form_edit">
+  <div class="popup popup_edit">
     <div class="popup__container">
-        <button class="button popup__close body__button-hover" type="button"
+      <button class="button popup__btn-close body__button-hover" type="button"
               aria-label="Закрыть окно редактирования профиля"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
-        <form name="edit-form" novalidate>
-          <fieldset class="popup__fieldset">
-            
-            <label class="popup__field">
-              <input type="text" class="popup__item popup__item_type_name" id="input-name"
-                name="input-name" placeholder="Имя" required minlength="2" maxlength="40">
-              <span class="popup__input-error input-name-error">Error</span>
+        <form class="form popup__form" name="edit-form" novalidate>
+          <fieldset class="form__fieldset">
+            <label class="form__field">
+              <input class="form__input form__item_type_name" type="text" id="name-input"
+                name="name-input" placeholder="Имя" minlength="2" maxlength="40" required>
+              <span class="form__input-error name-input-error"></span>
             </label>
-
-            <label class="popup__field">
-              <input type="text" class="popup__item popup__item_type_about" id="input-about"
-                name="input-about" placeholder="Имя" required minlength="2" maxlength="200">
-              <span class="popup__input-error input-about-error">Error</span>
+            <label class="form__field">
+              <input class="form__input form__item_type_about" type="text" id="about-input"
+                name="about-input" placeholder="О себе" minlength="2" maxlength="200" required>
+              <span class="form__input-error about-input-error"></span>
             </label>
-
+            <button class="button form__submit body__button-hover" type="submit">Сохранить</button>
           </fieldset>
-          <button class="button popup__button body__button-hover" type="submit">Сохранить</button>
-        </form>      
+        </form>
     </div>
   </div>
 
-  <div class="popup popup_form_add">
+  <div class="popup popup_add">
     <div class="popup__container">
-        <button class="button popup__close body__button-hover" type="button"
+        <button class="button popup__btn-close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
-        <form class="popup__form" name="add-form" novalidate>
-          <fieldset class="popup__fieldset">
-            <input class="popup__item popup__item_type_title"
-                   type="text" name="input-title" placeholder="Название" required>
-            <input class="popup__item popup__item_type_link"
-                   type="url" name="input-link" placeholder="Ссылка на картинку" required>
+        <form class="form popup__form" name="add-form" novalidate>
+          <fieldset class="form__fieldset">
+            <label class="form__field">
+              <input class="form__input form__item_type_title" type="text" id="title-input"
+                name="title-input" placeholder="Название" minlength="2" maxlength="30" required>
+              <span class="form__input-error title-input-error"></span>
+            </label>
+            <label class="form__field">
+              <input class="form__input form__item_type_link" type="url" id="link-input"
+                name="link-input" placeholder="Ссылка на картинку" required>
+              <span class="form__input-error link-input-error"></span>
+            </label>
+            <button class="button form__submit body__button-hover" type="submit">Создать</button>
           </fieldset>
-          <button class="button popup__button body__button-hover" type="submit">Создать</button>
-        </form>      
+        </form>
     </div>
   </div>
 
   <div class="popup popup_image">
     <div class="popup__container imagebox">
-        <button class="button popup__close body__button-hover" type="button"
+        <button class="button popup__btn-close body__button-hover" type="button"
               aria-label="Закрыть окно с картинкой"></button>
         <figure class="imagebox__container" >
           <img class="imagebox__img" src="#" alt=""/>

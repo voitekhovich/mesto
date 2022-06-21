@@ -6,21 +6,21 @@ const profileAbout = profile.querySelector('.profile__about');
 const profileButtonEdit = profile.querySelector('.profile__edit-button')
 const profileButtonAdd = profile.querySelector('.profile__add-button');
 
-const popupFormEdit = document.querySelector('.popup_form_edit');
-const formEditButtonClose = popupFormEdit.querySelector('.popup__close');
-const formEditButtonSave = popupFormEdit.querySelector('.popup__button');
-const formEditInputName = popupFormEdit.querySelector('.popup__item_type_name');
-const formEditInputAbout = popupFormEdit.querySelector('.popup__item_type_about');
+const popupFormEdit = document.querySelector('.popup_edit');
+const formEditButtonClose = popupFormEdit.querySelector('.popup__btn-close');
+const formEditButtonSave = popupFormEdit.querySelector('.form__submit');
+const formEditInputName = popupFormEdit.querySelector('.form__item_type_name');
+const formEditInputAbout = popupFormEdit.querySelector('.form__item_type_about');
 
-const popupFormAdd = document.querySelector('.popup_form_add');
-const formAddButtonClose = popupFormAdd.querySelector('.popup__close');
-const formAddButtonSave = popupFormAdd.querySelector('.popup__button');
+const popupFormAdd = document.querySelector('.popup_add');
+const formAddButtonClose = popupFormAdd.querySelector('.popup__btn-close');
+const formAddButtonSave = popupFormAdd.querySelector('.form__submit');
 const formAdd = popupFormAdd.querySelector('.popup__form');
-const formAddInputTitle = popupFormAdd.querySelector('.popup__item_type_title');
-const formAddInputLink = popupFormAdd.querySelector('.popup__item_type_link');
+const formAddInputTitle = popupFormAdd.querySelector('.form__item_type_title');
+const formAddInputLink = popupFormAdd.querySelector('.form__item_type_link');
 
 const popupImage = document.querySelector('.popup_image');
-const formImageButtonClose = popupImage.querySelector('.popup__close');
+const formImageButtonClose = popupImage.querySelector('.popup__btn-close');
 
 // Наполнение страницы карточками
 
@@ -138,3 +138,39 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   errorElement.textContent = errorMessage;
   errorElement.classList.add('form__input-error_active');
 };
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+    });
+  });
+};
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    })
+    setEventListeners(formElement);
+  })
+}
+
+enableValidation();

@@ -1,19 +1,19 @@
-.popup__item {
+.form__input {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  padding: 0 0 8px 0;
+  padding: 8px 1px;
   outline: none;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
-.popup__item:focus {
-  border-bottom: 2px solid var(--color_orangered);
+.form__input:focus {
+  box-shadow: 0 0 2px 2px var(--color_focus);
 }
 
 @media screen and (max-width: 767px) {
-  .popup__item {
+  .form__input {
     padding: 0 0 10px 0;
   }
 }

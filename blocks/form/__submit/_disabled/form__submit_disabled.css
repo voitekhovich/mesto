@@ -1,0 +1,10 @@
+.form__submit_disabled {
+  background-color: var(--color_white);
+  color: var(--color_black);
+  border: 1px solid var(--color_black);
+  opacity: .2;
+}
+
+.form__submit_disabled:hover {
+  opacity: .2;
+}
