@@ -9,15 +9,15 @@ const profileButtonAdd = profile.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popup_edit');
 const formEditButtonClose = popupEdit.querySelector('.popup__btn-close');
 const formEditButtonSave = popupEdit.querySelector('.form__submit');
-const formEditInputName = popupEdit.querySelector('.form__field_type_name');
-const formEditInputAbout = popupEdit.querySelector('.form__field_type_about');
+const formEditInputName = popupEdit.querySelector('.form__input_type_name');
+const formEditInputAbout = popupEdit.querySelector('.form__input_type_about');
 
 const popupFormAdd = document.querySelector('.popup_add');
 const formAddButtonClose = popupFormAdd.querySelector('.popup__btn-close');
 const formAddButtonSave = popupFormAdd.querySelector('.form__submit');
 const formAdd = popupFormAdd.querySelector('.popup__form');
-const formAddInputTitle = popupFormAdd.querySelector('.form__field_type_title');
-const formAddInputLink = popupFormAdd.querySelector('.form__field_type_link');
+const formAddInputTitle = popupFormAdd.querySelector('.form__input_type_title');
+const formAddInputLink = popupFormAdd.querySelector('.form__input_type_link');
 
 const popupImage = document.querySelector('.popup_image');
 const formImageButtonClose = popupImage.querySelector('.popup__btn-close');
