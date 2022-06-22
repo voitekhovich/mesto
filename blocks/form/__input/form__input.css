@@ -2,13 +2,14 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  padding: 8px 0px;
+  padding: 0px 0px 8px;
   outline: none;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  margin-top: -7px;
+  /* margin-top: -7px; */
 }
 
 .form__input:focus {
-  box-shadow: 0 0 2px 2px var(--color_focus);
+  border-bottom: 1px solid var(--color_focus);
+  /* box-shadow: 0 0 2px 2px var(--color_focus); */
 }
