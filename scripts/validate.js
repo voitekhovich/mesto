@@ -23,12 +23,12 @@ const checkInputValidity = (objectsForm, formElement, inputElement) => {
 const setEventListeners = (objectsForm, formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(objectsForm.inputSelector));
   const buttonElement = formElement.querySelector(objectsForm.submitButtonSelector);
-  toggleButtonState(objectsForm, inputList, buttonElement, formElement);
+  toggleButtonState(objectsForm, inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(objectsForm, formElement, inputElement);
-      toggleButtonState(objectsForm, inputList, buttonElement, formElement);
+      toggleButtonState(objectsForm, inputList, buttonElement);
     });
   });
 
@@ -36,14 +36,9 @@ const setEventListeners = (objectsForm, formElement) => {
 
 const enableValidation = (objectsForm) => {
   const formList = Array.from(document.querySelectorAll(objectsForm.formSelector));
-  
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
     setEventListeners(objectsForm, formElement);
   });
-
 };
 
 const hasInvalidInput = (inputList) => {
@@ -53,17 +48,14 @@ const hasInvalidInput = (inputList) => {
   
 }
 
-const toggleButtonState = (objectsForm, inputList, buttonElement, formElement) => {
+const toggleButtonState = (objectsForm, inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(objectsForm.inactiveButtonClass);
-    formElement.removeEventListener('submit', btnevents[formElement.name]);
+    setSubmitButtonDisable(buttonElement);
   } else {
+    buttonElement.removeAttribute('disabled');
     buttonElement.classList.remove(objectsForm.inactiveButtonClass);
-    formElement.addEventListener('submit', btnevents[formElement.name]);
   }
 }
-
-// enableValidation();
 
 enableValidation({
   formSelector: '.form',
