@@ -124,7 +124,7 @@ function savePopupEdit(evt) {
 }
 
 profileButtonEdit.addEventListener('click', openPopupEdit);
-formEditButtonSave.addEventListener('click', savePopupEdit);
+popupEdit.addEventListener('submit', savePopupEdit);
 
 // Popup добавления карточки
 
@@ -145,7 +145,7 @@ function savePopupAdd(evt) {
 }
 
 profileButtonAdd.addEventListener('click', openPopupAdd);
-formAddButtonSave.addEventListener('click', savePopupAdd);
+popupFormAdd.addEventListener('submit', savePopupAdd);
 
 // Popup c картинкой
 
