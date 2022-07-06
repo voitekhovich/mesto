@@ -69,9 +69,19 @@ const addElement = element => {
   elementsList.prepend(element);
 }
 
+import Card from './Card.js';
+import {initialCards} from './cards.js';
+
 initialCards.reverse().forEach(data => {
-  addElement(createElement(data));
+  const card = new Card(data, '.element-template');
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').append(cardElement);
 });
+
+
+// initialCards.reverse().forEach(data => {
+//   addElement(createElement(data));
+// });
 
 // Popups
 
