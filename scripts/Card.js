@@ -50,10 +50,3 @@ export default class Card {
   };
 
 }
-
-
-// initialCards.reverse().forEach(data => {
-//   const card = new Card(data, '.element-template');
-//   const cardElement = card.generateCard();
-//   document.querySelector('.elements').append(cardElement);
-// });
