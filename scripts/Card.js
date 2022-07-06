@@ -1,4 +1,7 @@
+import {openPopupImage} from './utils.js';
+
 export default class Card {
+  
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -19,7 +22,7 @@ export default class Card {
     this._setEventListeners();
 
     this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._link;
+    this._element.querySelector('.element__image').alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
 
     return this._element;
@@ -42,11 +45,11 @@ export default class Card {
   }
 
   _handleRemoveElement(evt) {
-    getElementByEvent(evt).remove();
+    evt.currentTarget.closest('.element').remove();
   };
   
   _handlePopupImageElement(evt) {
-    //openPopupImage(evt);
+    openPopupImage(evt);
   };
 
 }

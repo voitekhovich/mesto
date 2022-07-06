@@ -6,10 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto Russia</title>
   <link rel="stylesheet" href="./pages/index.css">
-  <script type="module" src="./scripts/cards.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
   <script type="module" src="./scripts/index.js"></script>
-  <script defer src="./scripts/validate.js"></script>
 </head>
 <body class="body">
 
@@ -45,7 +42,7 @@
 
   <div class="popup popup_edit">
     <div class="popup__container">
-      <button class="button popup__btn-close body__button-hover" type="button"
+      <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно редактирования профиля"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="form popup__form" name="edit-form" novalidate>
@@ -68,7 +65,7 @@
 
   <div class="popup popup_add">
     <div class="popup__container">
-        <button class="button popup__btn-close body__button-hover" type="button"
+        <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно добавления нового места"></button>
         <h2 class="popup__heading">Новое место</h2>
         <form class="form popup__form" name="add-form" novalidate>
@@ -91,7 +88,7 @@
 
   <div class="popup popup_image">
     <div class="popup__container imagebox">
-        <button class="button popup__btn-close body__button-hover" type="button"
+        <button class="button popup__close body__button-hover" type="button"
               aria-label="Закрыть окно с картинкой"></button>
         <figure class="imagebox__container" >
           <img class="imagebox__img" src="#" alt=""/>
@@ -99,8 +96,6 @@
         </figure>
     </div>
   </div>
-
-<!-- body__text-nowrap -->
 
   <template class="element-template" id="element-template">
     <li class="element">
