@@ -2,26 +2,22 @@ import {setSubmitButtonDisable} from './utils.js';
 
 export default class FormValidator {
 
-  constructor(set, form) {
-    this._inputSelector = set.inputSelector;
-    this._submitButtonSelector = set.submitButtonSelector;
-    this._inactiveButtonClass = set.inactiveButtonClass;
-    this._inputErrorClass = set.inputErrorClass;
-    this._errorClass = set.errorClass;
-    this._form = form;
+  constructor(objectsForm, formElement) {
+    this._options = objectsForm;
+    this._form = formElement;
   }
 
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(this._inputErrorClass);
+    inputElement.classList.add(this._options.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._errorClass);
+    errorElement.classList.add(this._options.errorClass);
   };
   
   _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this._inputErrorClass);
-    errorElement.classList.remove(this._errorClass);
+    inputElement.classList.remove(this._options.inputErrorClass);
+    errorElement.classList.remove(this._options.errorClass);
     errorElement.textContent = '';
   };
   
@@ -33,9 +29,9 @@ export default class FormValidator {
     }
   };
   
-  setEventListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+  _setEventListeners() {
+    const inputList = Array.from(this._form.querySelectorAll(this._options.inputSelector));
+    const buttonElement = this._form.querySelector(this._options.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
@@ -47,6 +43,10 @@ export default class FormValidator {
   
   };
   
+  enableValidation() {
+    this._setEventListeners();
+  }
+
   _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
@@ -59,7 +59,7 @@ export default class FormValidator {
       setSubmitButtonDisable(buttonElement);
     } else {
       buttonElement.removeAttribute('disabled');
-      buttonElement.classList.remove(this._inactiveButtonClass);
+      buttonElement.classList.remove(this._options.inactiveButtonClass);
     }
   }
 

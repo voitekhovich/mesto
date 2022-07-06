@@ -2,9 +2,9 @@ import {openPopupImage} from './utils.js';
 
 export default class Card {
   
-  constructor(data, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor(link, name, cardSelector) {
+    this._link = link;
+    this._name = name;
     this._cardSelector = cardSelector;
   }
 
@@ -15,7 +15,6 @@ export default class Card {
       .querySelector('.element')
       .cloneNode(true);
   }
-
 
   generateCard() {
     this._element = this._getTemplate();

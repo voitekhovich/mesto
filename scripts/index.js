@@ -1,4 +1,12 @@
+import {openPopup, closePopup, setSubmitButtonDisable} from './utils.js';
+import {initialCards} from './cards.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+
+
 const page = document.querySelector('.page');
+const elements = page.querySelector('.elements');
 
 const profile = page.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -17,13 +25,21 @@ const formAdd = popupFormAdd.querySelector('.popup__form');
 const formAddInputTitle = popupFormAdd.querySelector('.form__input_type_title');
 const formAddInputLink = popupFormAdd.querySelector('.form__input_type_link');
 
-import {openPopup, closePopup, setSubmitButtonDisable} from './utils.js';
+// Наполнение страницы карточками
+
+function addElement(data, template) {
+  const card = new Card(data.link, data.name, template);
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
+}
+
+initialCards.forEach(item => {
+  addElement(item, '#element-template')
+});
 
 // Установка валидации на формы
 
-import FormValidator from './FormValidator.js';
-
-const set = {
+const objectsForm = {
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'form__submit_inactive',
@@ -33,19 +49,8 @@ const set = {
 
 const formList = Array.from(document.querySelectorAll('.form'));
 formList.forEach((formElement) => {
-  const validator = new FormValidator(set, formElement)
-    validator.setEventListeners();
-});
-
-// Наполнение страницы карточками
-
-import Card from './Card.js';
-import {initialCards} from './cards.js';
-
-initialCards.reverse().forEach(data => {
-  const card = new Card(data, '.element-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
+  const validator = new FormValidator(objectsForm, formElement);
+  validator.enableValidation();
 });
 
 // Popup редактирование профиля
@@ -83,11 +88,7 @@ function savePopupAdd(evt) {
     link: formAddInputLink.value,
   }
 
-  const card = new Card(data, '.element-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
-
-
+  addElement(data, '#element-template')
   closePopup(popupFormAdd);
 }
 
