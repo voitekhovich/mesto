@@ -13,12 +13,6 @@ function closeByEscape(evt) {
   }
 }
 
-const closeByOverlay = (evt) => {
-  if (evt.target.classList.contains('popup_visible')){
-    closePopup(evt.target);
-  }
-}
-
 export const openPopup = popup => {
   popup.classList.add('popup_visible');
   document.addEventListener('keydown', closeByEscape);
@@ -29,22 +23,6 @@ export const closePopup = popup => {
   document.removeEventListener('keydown', closeByEscape);
 }
 
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_visible')) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup);
-    }
-  })
-})
-
-export function setSubmitButtonDisable(submitButton) {
-  submitButton.setAttribute('disabled', 'disabled');
-  submitButton.classList.add('form__submit_inactive');
-}
-
 // Popup c картинкой
 
 export function openPopupImage(evt) {
@@ -53,3 +31,13 @@ export function openPopupImage(evt) {
   imageboxCaption.textContent = evt.currentTarget.alt;
   openPopup(popupImage)
 }
+
+// Навешивание слушателей закрытия Popup
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_visible') || evt.target.classList.contains('popup__close')) {
+      closePopup(popup);
+    }
+  })
+})

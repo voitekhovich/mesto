@@ -1,9 +1,9 @@
-import {openPopup, closePopup, setSubmitButtonDisable} from './utils.js';
-import {initialCards} from './cards.js';
+import {openPopup, closePopup} from './utils.js';
+import {initialCards} from './utils/constants.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-
+const elementTemplate = '#element-template';
 
 const page = document.querySelector('.page');
 const elements = page.querySelector('.elements');
@@ -25,6 +25,8 @@ const formAdd = popupFormAdd.querySelector('.popup__form');
 const formAddInputTitle = popupFormAdd.querySelector('.form__input_type_title');
 const formAddInputLink = popupFormAdd.querySelector('.form__input_type_link');
 
+const formList = Array.from(document.querySelectorAll('.form'));
+
 // Наполнение страницы карточками
 
 function addElement(data, template) {
@@ -32,26 +34,6 @@ function addElement(data, template) {
   const cardElement = card.generateCard();
   elements.prepend(cardElement);
 }
-
-initialCards.forEach(item => {
-  addElement(item, '#element-template')
-});
-
-// Установка валидации на формы
-
-const objectsForm = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'form__submit_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-};
-
-const formList = Array.from(document.querySelectorAll('.form'));
-formList.forEach((formElement) => {
-  const validator = new FormValidator(objectsForm, formElement);
-  validator.enableValidation();
-});
 
 // Popup редактирование профиля
 
@@ -65,18 +47,15 @@ function savePopupEdit(evt) {
   evt.preventDefault();
   profileName.textContent = formEditInputName.value;
   profileAbout.textContent = formEditInputAbout.value;
-  setSubmitButtonDisable(formEditButtonSave);
+  FormValidator.setSubmitButtonDisable(formEditButtonSave);
   closePopup(popupEdit);
 }
-
-profileButtonEdit.addEventListener('click', openPopupEdit);
-popupEdit.addEventListener('submit', savePopupEdit);
 
 // Popup добавления карточки
 
 function openPopupAdd() {
   formAdd.reset();
-  setSubmitButtonDisable(formAddButtonSave);
+  FormValidator.setSubmitButtonDisable(formAddButtonSave);
   openPopup(popupFormAdd);
 }
 
@@ -88,9 +67,37 @@ function savePopupAdd(evt) {
     link: formAddInputLink.value,
   }
 
-  addElement(data, '#element-template')
+  addElement(data, elementTemplate)
   closePopup(popupFormAdd);
 }
+
+// Наполнение страницы карточками
+
+initialCards.forEach(item => {
+  addElement(item, elementTemplate)
+});
+
+// Установка валидации на формы
+
+const validationConfig = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
+};
+
+formList.forEach((formElement) => {
+  const validator = new FormValidator(validationConfig, formElement);
+  validator.enableValidation();
+});
+
+// Popup редактирование профиля
+
+profileButtonEdit.addEventListener('click', openPopupEdit);
+popupEdit.addEventListener('submit', savePopupEdit);
+
+// Popup добавления карточки
 
 profileButtonAdd.addEventListener('click', openPopupAdd);
 popupFormAdd.addEventListener('submit', savePopupAdd);
