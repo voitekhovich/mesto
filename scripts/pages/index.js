@@ -1,7 +1,10 @@
-import {openPopup, closePopup} from './utils.js';
-import {initialCards} from './utils/constants.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import {openPopup, closePopup} from '../utils/utils.js';
+import {initialCards} from '../utils/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js'
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const elementTemplate = '#element-template';
 
@@ -56,7 +59,8 @@ function savePopupEdit(evt) {
 function openPopupAdd() {
   formAdd.reset();
   FormValidator.setSubmitButtonDisable(formAddButtonSave);
-  openPopup(popupFormAdd);
+  popupAdd2.open();
+  // openPopup(popupFormAdd);
 }
 
 function savePopupAdd(evt) {  
@@ -73,9 +77,17 @@ function savePopupAdd(evt) {
 
 // Наполнение страницы карточками
 
-initialCards.forEach(item => {
-  addElement(item, elementTemplate)
-});
+const cardsList = new Section(
+  {
+    items: initialCards.reverse(),
+    renderer: (data) => {
+      const card = new Card(data.link, data.name, elementTemplate);
+      cardsList.addItem(card.generateCard());
+    }
+  }, '.elements'
+)
+
+cardsList.rendererItems();
 
 // Установка валидации на формы
 
@@ -101,3 +113,30 @@ popupEdit.addEventListener('submit', savePopupEdit);
 
 profileButtonAdd.addEventListener('click', openPopupAdd);
 popupFormAdd.addEventListener('submit', savePopupAdd);
+
+
+
+
+// ========================================================
+
+const popupImage = new PopupWithImage('.popup_image');
+popupImage.setEventListeners();
+
+const popupAdd2 = new PopupWithForm('.popup_add', (formData) => {
+  const card = new Card(formData.link-input, formData.title-input, elementTemplate);
+  cardsList.addItem(card.generateCard());
+})
+popupAdd2.setEventListeners();
+
+export {popupImage, popupAdd2 as popupEdit2};
+
+
+// const cardsList = new Section(
+//   {
+//     items: initialCards.reverse(),
+//     renderer: (data) => {
+//       const card = new Card(data.link, data.name, elementTemplate);
+//       cardsList.addItem(card.generateCard());
+//     }
+//   }, '.elements'
+// )

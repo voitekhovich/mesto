@@ -25,19 +25,19 @@ export const closePopup = popup => {
 
 // Popup c картинкой
 
-export function openPopupImage(evt) {
-  imageboxImg.src = evt.currentTarget.src;
-  imageboxImg.alt = evt.currentTarget.alt;
-  imageboxCaption.textContent = evt.currentTarget.alt;
-  openPopup(popupImage)
-}
+// export function openPopupImage(evt) {
+//   imageboxImg.src = evt.currentTarget.src;
+//   imageboxImg.alt = evt.currentTarget.alt;
+//   imageboxCaption.textContent = evt.currentTarget.alt;
+//   openPopup(popupImage)
+// }
 
 // Навешивание слушателей закрытия Popup
 
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_visible') || evt.target.classList.contains('popup__close')) {
-      closePopup(popup);
-    }
-  })
-})
+// popups.forEach((popup) => {
+//   popup.addEventListener('mousedown', (evt) => {
+//     if (evt.target.classList.contains('popup_visible') || evt.target.classList.contains('popup__close')) {
+//       closePopup(popup);
+//     }
+//   })
+// })

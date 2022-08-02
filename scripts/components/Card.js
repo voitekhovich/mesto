@@ -1,4 +1,5 @@
-import {openPopupImage} from './utils.js';
+// import {openPopupImage} from '../utils/utils.js';
+import { popupImage } from '../pages/index.js';
 
 export default class Card {
   
@@ -34,8 +35,8 @@ export default class Card {
     this._element.querySelector('.element__trash').addEventListener('click', (evt) => {
       this._handleRemoveElement(evt);
     });
-    this._element.querySelector('.element__image').addEventListener('click', (evt) => {
-      this._handlePopupImageElement(evt);
+    this._element.querySelector('.element__image').addEventListener('click', () => {
+      this._handlePopupImageElement();
     });
   }
 
@@ -48,7 +49,8 @@ export default class Card {
   };
   
   _handlePopupImageElement(evt) {
-    openPopupImage(evt);
+    // openPopupImage(evt);
+    popupImage.open({src: this._link, alt: this._name});
   };
 
 }
