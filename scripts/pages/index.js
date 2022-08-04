@@ -57,7 +57,7 @@ function savePopupEdit(evt) {
 // Popup добавления карточки
 
 function openPopupAdd() {
-  formAdd.reset();
+  //formAdd.reset();
   FormValidator.setSubmitButtonDisable(formAddButtonSave);
   popupAdd2.open();
   // openPopup(popupFormAdd);
@@ -79,7 +79,7 @@ function savePopupAdd(evt) {
 
 const cardsList = new Section(
   {
-    items: initialCards.reverse(),
+    items: initialCards,
     renderer: (data) => {
       const card = new Card(data.link, data.name, elementTemplate);
       cardsList.addItem(card.generateCard());
@@ -112,7 +112,7 @@ popupEdit.addEventListener('submit', savePopupEdit);
 // Popup добавления карточки
 
 profileButtonAdd.addEventListener('click', openPopupAdd);
-popupFormAdd.addEventListener('submit', savePopupAdd);
+//popupFormAdd.addEventListener('submit', savePopupAdd);
 
 
 
@@ -123,12 +123,12 @@ const popupImage = new PopupWithImage('.popup_image');
 popupImage.setEventListeners();
 
 const popupAdd2 = new PopupWithForm('.popup_add', (formData) => {
-  const card = new Card(formData.link-input, formData.title-input, elementTemplate);
+  const card = new Card(formData['link-input'], formData['title-input'], elementTemplate);
   cardsList.addItem(card.generateCard());
 })
 popupAdd2.setEventListeners();
 
-export {popupImage, popupAdd2 as popupEdit2};
+export {popupImage};
 
 
 // const cardsList = new Section(

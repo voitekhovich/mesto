@@ -4,6 +4,12 @@ export default class Popup {
     this._selector = document.querySelector(popupSelector);
   }
 
+  _handleEscClose(evt) {
+    if (evt.key === 'Escape'){
+      this.close();
+    }
+  }
+
   open() {
     this._escHandler = this._handleEscClose.bind(this)
     document.addEventListener('keydown', this._escHandler);
@@ -15,17 +21,9 @@ export default class Popup {
     this._selector.classList.remove('popup_visible');
   }
 
-  _handleEscClose(evt) {
-    console.log('esc: ' + evt.key);
-    if (evt.key === 'Escape'){
-      console.log(this);
-      this.close();
-    }
-  }
-
   setEventListeners() {
-    this._selector.addEventListener('mousedown', () => {
-      if (this._selector.classList.contains('popup_visible') || this._selector.classList.contains('popup__close')) {
+    this._selector.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_visible') || evt.target.classList.contains('popup__close')) {
         this.close();
       }
     })
