@@ -1,12 +1,10 @@
-// import {openPopupImage} from '../utils/utils.js';
-import { popupImage } from '../pages/index.js';
-
 export default class Card {
   
-  constructor(link, name, cardSelector) {
+  constructor(link, name, cardSelector, handleCardClick) {
     this._link = link;
     this._name = name;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -48,9 +46,8 @@ export default class Card {
     evt.currentTarget.closest('.element').remove();
   };
   
-  _handlePopupImageElement(evt) {
-    // openPopupImage(evt);
-    popupImage.open({src: this._link, alt: this._name});
+  _handlePopupImageElement() {
+    this._handleCardClick();
   };
 
 }
