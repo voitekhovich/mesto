@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Сервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их, ставить лайки и редактировать профиль.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voitekhovich/mesto.git"
+  },
+  "author": "voitekhovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/voitekhovich/mesto/issues"
+  },
+  "homepage": "https://github.com/voitekhovich/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

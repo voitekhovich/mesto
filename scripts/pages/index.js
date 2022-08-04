@@ -9,20 +9,14 @@ import {
   elementsSelector,
   validationConfig,
   elementTemplate,
+  profileButtonEdit,
+  profileButtonAdd,
   formList
 } from '../utils/constants.js';
 
-const page = document.querySelector('.page');
-
-const profile = page.querySelector('.profile');
-const profileName = profile.querySelector('.profile__name');
-const profileAbout = profile.querySelector('.profile__about');
-const profileButtonEdit = profile.querySelector('.profile__edit-button')
-const profileButtonAdd = profile.querySelector('.profile__add-button');
-
-const popupEditForm = document.querySelector('.popup_edit');
-const formEditInputName = popupEditForm.querySelector('.form__input_type_name');
-const formEditInputAbout = popupEditForm.querySelector('.form__input_type_about');
+function handleCardClick(card) {
+  popupImage.open({src: card._link, alt: card._name});
+}
 
 // Наполнение страницы карточками
 
@@ -30,11 +24,8 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const card = new Card(
-        data.link,
-        data.name,
-        elementTemplate, () => {
-          popupImage.open({src: card._link, alt: card._name});
+      const card = new Card(data, elementTemplate, () => {
+          handleCardClick(card);
         });
 
       cardsList.addItem(card.generateCard());
@@ -57,30 +48,32 @@ popupImage.setEventListeners();
 
 // Popup добавления карточки
 
+const popupAdd = new PopupWithForm('.popup_add', (formData) => {
+  const data = {
+    link: formData['link-input'],
+    name: formData['title-input']
+  };
+  const card = new Card(data, elementTemplate, () => {
+    handleCardClick(card);
+  });
+
+  cardsList.addItem(card.generateCard());
+})
+
+popupAdd.setEventListeners();
+
 profileButtonAdd.addEventListener('click', () => {
-  // FormValidator.setSubmitButtonDisable(this._selector.querySelector('.form__submit'));
+  FormValidator.setSubmitButtonDisable(popupAdd._selector.querySelector('.form__submit'));
   popupAdd.open();
 });
 
-const popupAdd = new PopupWithForm('.popup_add', (formData) => {
-  const card = new Card(formData['link-input'], formData['title-input'], elementTemplate);
-  cardsList.addItem(card.generateCard());
-})
-popupAdd.setEventListeners();
-
 // Popup редактирование профиля
 
-profileButtonEdit.addEventListener('click', () => {
-  formEditInputName.value = userInfo.getUserInfo().name;
-  formEditInputAbout.value = userInfo.getUserInfo().about;
-  // FormValidator.setSubmitButtonDisable(this._selector.querySelector('.form__submit'));
-  popupEdit.open();
-});
-
-const userInfo = new UserInfo({
-  userName: '.profile__name',
-  userAbout: '.profile__about',
-})
+const userInfo = new UserInfo(
+  {
+    userName: '.profile__name',
+    userAbout: '.profile__about',
+  })
 
 const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
   userInfo.setUserInfo({
@@ -90,3 +83,11 @@ const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
 })
 
 popupEdit.setEventListeners();
+
+profileButtonEdit.addEventListener('click', () => {
+  const userData = userInfo.getUserInfo()
+  popupEdit._selector.querySelector('.form__input_type_name').value = userData.name;
+  popupEdit._selector.querySelector('.form__input_type_about').value = userData.about;
+  FormValidator.setSubmitButtonDisable(popupEdit._selector.querySelector('.form__submit'));
+  popupEdit.open();
+});
