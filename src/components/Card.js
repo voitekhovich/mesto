@@ -43,7 +43,7 @@ export default class Card {
   }
 
   _handleRemoveElement(evt) {
-    evt.currentTarget.closest('.element').remove();
+    this._element.remove();
   };
   
   _handlePopupImageElement() {
