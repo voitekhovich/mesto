@@ -23,7 +23,7 @@ function createNewCard(data){
   const card = new Card(data, elementTemplate, () => {
     handleCardClick(card);
   });
-  return card;
+  return card.generateCard();
 }
 
 // Наполнение страницы карточками
@@ -32,7 +32,7 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      cardsList.addItem(createNewCard(data).generateCard());
+      cardsList.addItem(createNewCard(data));
     }
   }, elementsSelector);
 
@@ -46,7 +46,7 @@ popupImage.setEventListeners();
 // Popup добавления карточки
 
 const popupAdd = new PopupWithForm('.popup_add', (formData) => {
-  cardsList.addItem(createNewCard(formData).generateCard());
+  cardsList.addItem(createNewCard(formData));
 })
 
 popupAdd.setEventListeners();
@@ -69,11 +69,13 @@ const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
 })
 
 popupEdit.setEventListeners();
+const inputName = popupEdit._popup.querySelector('.form__input_type_name');
+const inputAbout = popupEdit._popup.querySelector('.form__input_type_about');
 
 profileButtonEdit.addEventListener('click', () => {
   const userData = userInfo.getUserInfo()
-  popupEdit._popup.querySelector('.form__input_type_name').value = userData.name;
-  popupEdit._popup.querySelector('.form__input_type_about').value = userData.about;
+  inputName.value = userData.name;
+  inputAbout.value = userData.about;
   editFormValidator.disableSubmitButton();
   popupEdit.open();
 });

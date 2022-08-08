@@ -3,6 +3,7 @@ export default class FormValidator {
   constructor(validationConfig, formElement) {
     this._config = validationConfig;
     this._form = formElement;
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -28,14 +29,13 @@ export default class FormValidator {
   };
 
   _setEventListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
     this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-    this._toggleButtonState(inputList);
+    this._toggleButtonState();
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList);
+        this._toggleButtonState();
       });
     });
   
@@ -45,15 +45,15 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
     
   }
 
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
       this.disableSubmitButton();
     } else {
       this._buttonElement.removeAttribute('disabled');
