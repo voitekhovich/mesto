@@ -3,4 +3,7 @@
   width: 282px;
   background-color: var(--color_white);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

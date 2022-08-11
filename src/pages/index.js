@@ -6,6 +6,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import {
   elementsSelector,
@@ -17,53 +18,99 @@ import {
   baseUrl
 } from '../utils/constants.js';
 
-const api = new Api({
-  baseUrl: baseUrl,
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
+const api = new Api(
+  {
+    baseUrl: baseUrl,
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    }
   }
+)
+
+// Popup редактирование профиля
+
+const userInfo = new UserInfo(
+  {
+    userName: '.profile__name',
+    userAbout: '.profile__about',
+    userAvatart: '.profile__avatar',
+  })
+
+api.getOwnerUser()
+  .then(data => {
+    userInfo.setUserInfo(data);
+    userInfo.setUserAvatar(data);
+  })
+
+function userDataUpdate(newData) {
+  api.setOwnerUser(newData)
+    .then(data => {
+      userInfo.setUserInfo(data);
+    })
+}
+
+const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
+  userDataUpdate(formData);
 })
 
-function handleCardClick(card) {
-  popupImage.open({src: card._link, alt: card._name});
+popupEdit.setEventListeners();
+const inputName = popupEdit._popup.querySelector('.form__input_type_name');
+const inputAbout = popupEdit._popup.querySelector('.form__input_type_about');
+
+profileButtonEdit.addEventListener('click', () => {
+  const userData = userInfo.getUserInfo()
+  inputName.value = userData.name;
+  inputAbout.value = userData.about;
+  editFormValidator.disableSubmitButton();
+  popupEdit.open();
+});
+
+// Наполнение страницы карточками
+
+function isOwnerCard(card) {
+  return card._ownerId === userInfo.getUserId()
+}
+
+function cardLiked(card) {
+  if (card._likedMe) {
+    api.delLikes(card._data._id)
+      .then(data => {
+        card._setLikesCount(data.likes.length);
+        card._setLikesCount();
+    })
+    card._element.querySelector('.element__like').classList.remove('element__like_active');
+  } else {
+    api.setLikes(card._data._id)
+      .then(data => {
+        card._setLikesCount(data.likes.length);
+        card._setLikesCount();
+      })
+    card._element.querySelector('.element__like').classList.add('element__like_active');
+  }
 }
 
 function createNewCard(data){
-  const card = new Card(data, elementTemplate, () => {
-    handleCardClick(card);
-  });
+  const card = new Card(data, elementTemplate,
+    () => popupImage.open({src: card._data.link, alt: card._data.name}),
+    () => popupDelete.open(card),
+    () => isOwnerCard(card),
+    () => cardLiked(card)
+  );
   return card.generateCard();
 }
-
-// Наполнение страницы карточками
 
 const cardsList = new Section(
   {
     items: [],
-    renderer: (data) => {
-      cardsList.addItem(createNewCard(data));
-    }
+    renderer: data => cardsList.addItem(createNewCard(data))
   }, elementsSelector);
-
-// cardsList.rendererItems();
-
-// function initialCards(dataCards) {
-//   const cardsList = new Section(
-//     {
-//       items: dataCards,
-//       renderer: (data) => {
-//         cardsList.addItem(createNewCard(data));
-//       }
-//     }, elementsSelector);
-  
-//   cardsList.rendererItems();
-// }
 
 api.getInitialCards()
   .then(data => {
-    cardsList.setItems(data);
+    cardsList.setItems(data.reverse());
     cardsList.rendererItems();
+    // console.log(data);
   })
 
 // Popup с изображением карточки
@@ -80,10 +127,7 @@ function addNewCard(card) {
     })
 }
 
-const popupAdd = new PopupWithForm('.popup_add', (formData) => {
-  // cardsList.addItem(createNewCard(formData));
-  addNewCard(formData);
-})
+const popupAdd = new PopupWithForm('.popup_add', formData => addNewCard(formData))
 
 popupAdd.setEventListeners();
 
@@ -92,45 +136,16 @@ profileButtonAdd.addEventListener('click', () => {
   popupAdd.open();
 });
 
-// Popup редактирование профиля
+// Popup удаления карточки
 
-const userInfo = new UserInfo(
-  {
-    userName: '.profile__name',
-    userAbout: '.profile__about',
-    userAvatart: '.profile__avatar',
-  })
-
-api.getOwnerUser()
-  .then(data => {
-    // console.log(data);
-    userInfo.setUserInfo(data);
-    userInfo.setUserAvatar(data);
-  })
-
-function userDataUpdate(newData) {
-  api.setOwnerUser(newData)
+const popupDelete = new PopupWithConfirmation('.popup_del', (card) => {
+  api.delCard(card._data._id)
     .then(data => {
-      userInfo.setUserInfo(data);
+      card._element.remove();
     })
-}
-
-const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
-  // userInfo.setUserInfo(formData);
-  userDataUpdate(formData);
 })
 
-popupEdit.setEventListeners();
-const inputName = popupEdit._popup.querySelector('.form__input_type_name');
-const inputAbout = popupEdit._popup.querySelector('.form__input_type_about');
-
-profileButtonEdit.addEventListener('click', () => {
-  const userData = userInfo.getUserInfo()
-  inputName.value = userData.name;
-  inputAbout.value = userData.about;
-  editFormValidator.disableSubmitButton();
-  popupEdit.open();
-});
+popupDelete.setEventListeners();
 
 // Установка валидации на формы
 

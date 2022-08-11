@@ -84,6 +84,19 @@
     </div>
   </div>
 
+  <div class="popup popup_del">
+    <div class="popup__container">
+        <button class="button popup__close body__button-hover" type="button"
+              aria-label="Закрыть окно удаления карточки"></button>
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <form class="form popup__form" name="add-form" novalidate>
+          <fieldset class="form__fieldset">
+            <button class="button form__submit body__button-hover" type="submit">Да</button>
+          </fieldset>
+        </form>
+    </div>
+  </div>
+
   <div class="popup popup_image">
     <div class="popup__container imagebox">
         <button class="button popup__close body__button-hover" type="button"
@@ -101,7 +114,11 @@
       <button class="button element__trash body__button-hover" type="button" aria-label="Удалить"></button>
       <div class="element__container">
         <h2 class="element__title body__text-nowrap"></h2>
-        <button class="button element__like body__button-hover" type="button" aria-label="Нравится"></button>
+        <div class="element__likes-container">
+          <button class="button element__like body__button-hover" type="button" aria-label="Нравится"></button>
+          <p class="element__likes-count"></p>
+        </div>
+        
       </div>
     </li>
   </template>
