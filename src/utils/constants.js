@@ -14,3 +14,4 @@ export const elementsSelector = '.elements';
 
 export const profileButtonEdit = document.querySelector('.profile__edit-button')
 export const profileButtonAdd = document.querySelector('.profile__add-button');
+export const profileAvatarEdit = document.querySelector('.profile__avatar-edit');
