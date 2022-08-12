@@ -43,7 +43,7 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
-@import url(../blocks/popup/__heading-сonfirmation/popup__heading-сonfirmation.css);
+@import url(../blocks/popup/__сonfirmation/popup__сonfirmation.css);
 @import url(../blocks/popup/_image/popup_image.css);
 
 @import url(../blocks/form/__fieldset/form__fieldset.css);
