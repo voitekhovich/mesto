@@ -17,7 +17,7 @@
     <main>
       <section class="profile">
         <div class="profile__avatar-box"> 
-          <img src="" alt="" class="profile__avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
           <div class="profile__avatar-edit body__button-hover"></div>
         </div>
         <div class="profile__info">
@@ -95,7 +95,7 @@
         <form class="form popup__form" name="add-form" novalidate>
           <fieldset class="form__fieldset">
             <label class="form__field">
-              <input class="form__input form__input_type_link" type="url" id="link-input"
+              <input class="form__input form__input_type_link" type="url" id="link-avatar"
                 name="avatar" placeholder="Ссылка на картинку" required>
               <span class="form__input-error link-input-error"></span>
             </label>
