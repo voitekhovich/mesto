@@ -17,6 +17,8 @@ import {
   profileButtonAdd,
   profileAvatarEdit,
   userProfileSelectors,
+  popupList,
+  formInputList
 } from '../utils/constants.js';
 
 const api = new Api(apiOptions);
@@ -28,13 +30,13 @@ function errorOutput(err) {
 
 // Popup редактирование профиля
 
-const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
+const popupEdit = new PopupWithForm(popupList.popupEdit, (formData) => {
   updateUserInfo(formData);
 });
 popupEdit.setEventListeners();
 
-const inputName = popupEdit.getPopup().querySelector('.form__input_type_name');
-const inputAbout = popupEdit.getPopup().querySelector('.form__input_type_about');
+const inputName = popupEdit.getPopup().querySelector(formInputList.inputName);
+const inputAbout = popupEdit.getPopup().querySelector(formInputList.inputAbout);
 
 function updateUserInfo(newData) {
   editFormValidator.disableSubmitButton();
@@ -48,13 +50,6 @@ function updateUserInfo(newData) {
     })
 }
 
-api.getUserInfo()
-  .then(data => {
-    userInfo.setUserInfo(data);
-    userInfo.setAvatar(data);
-  })
-  .catch((err) => errorOutput(err))
-
 profileButtonEdit.addEventListener('click', () => {
   inputName.value = userInfo.getUserInfo().name;
   inputAbout.value = userInfo.getUserInfo().about;
@@ -64,7 +59,7 @@ profileButtonEdit.addEventListener('click', () => {
 
 // Popup изменения аватара
 
-const popupAvatar = new PopupWithForm('.popup_avatar', formData => {
+const popupAvatar = new PopupWithForm(popupList.popupAvatar, formData => {
   updateUserAvatar(formData);
 })
 popupAvatar.setEventListeners();
@@ -136,21 +131,29 @@ function createNewCard(data){
   return card.generateCard();
 }
 
-api.getInitialCards()
-  .then(data => {
-    cardsList.setItems(data.reverse());
+// Начальная инициализация страницы
+
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards(),
+])
+  .then(([user, cards]) => {
+    userInfo.setUserInfo(user);
+    userInfo.setAvatar(user);
+
+    cardsList.setItems(cards.reverse());
     cardsList.rendererItems();
-    })
+  })
   .catch((err) => errorOutput(err))
 
 // Popup с изображением карточки
 
-export const popupImage = new PopupWithImage('.popup_image');
+export const popupImage = new PopupWithImage(popupList.popupImage);
 popupImage.setEventListeners();
 
 // Popup добавления карточки
 
-const popupAdd = new PopupWithForm('.popup_add', formData => addNewCard(formData));
+const popupAdd = new PopupWithForm(popupList.popupAdd, formData => addNewCard(formData));
 popupAdd.setEventListeners();
 
 function addNewCard(card) {
@@ -172,8 +175,7 @@ profileButtonAdd.addEventListener('click', () => {
 
 // Popup удаления карточки
 
-const popupDelete = new PopupWithConfirmation(
-  '.popup_del',
+const popupDelete = new PopupWithConfirmation(popupList.popupDel,
   (card) => {
     api.delCard(card._data._id)
       .then(data => {

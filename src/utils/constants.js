@@ -29,3 +29,16 @@ export const elementsSelector = '.elements';
 export const profileButtonEdit = document.querySelector('.profile__edit-button')
 export const profileButtonAdd = document.querySelector('.profile__add-button');
 export const profileAvatarEdit = document.querySelector('.profile__avatar-edit');
+
+export const popupList = {
+  popupEdit: '.popup_edit',
+  popupAvatar: '.popup_avatar',
+  popupImage: '.popup_image',
+  popupAdd: '.popup_add',
+  popupDel: '.popup_del'
+}
+
+export const formInputList = {
+  inputName: '.form__input_type_name',
+  inputAbout: '.form__input_type_about'
+}

@@ -32,9 +32,9 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    super.close();
     this._popupForm.reset();
     this._formSubmit.textContent = this._defaulTextSubmit;
+    super.close();
   }
 
 }
