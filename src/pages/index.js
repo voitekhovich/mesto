@@ -45,9 +45,14 @@ api.getOwnerUser()
   })
 
 function userDataUpdate(newData) {
+  editFormValidator.disableSubmitButton();
   api.setOwnerUser(newData)
     .then(data => {
       userInfo.setUserInfo(data);
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      popupEdit.close();
     })
 }
 
@@ -70,13 +75,19 @@ profileButtonEdit.addEventListener('click', () => {
 // Popup изменения аватара
 
 function userAvatarUpdate(newData) {
+  editFormAvatarValidator.disableSubmitButton();
   api.setAvatar(newData.avatar)
     .then(data => {
       userInfo.setUserAvatar(data);
     })
+    .finally(() => {
+      popupAvatar.close();
+    })
 }
 
-const popupAvatar = new PopupWithForm('.popup_avatar', formData => userAvatarUpdate(formData))
+const popupAvatar = new PopupWithForm('.popup_avatar', formData => {
+  userAvatarUpdate(formData);
+})
 popupAvatar.setEventListeners();
 
 profileAvatarEdit.addEventListener('click', () => {
@@ -149,9 +160,13 @@ popupImage.setEventListeners();
 // Popup добавления карточки
 
 function addNewCard(card) {
+  addFormValidator.disableSubmitButton();
   api.setCard(card)
     .then(data => {
       cardsList.addItem(createNewCard(data));
+    })
+    .finally(() => {
+      popupAdd.close();
     })
 }
 
