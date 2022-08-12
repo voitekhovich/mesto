@@ -25,11 +25,11 @@ export default class Card {
       .cloneNode(true);
   }
 
-  getOwnerLiked(ownerId) {
+  isOwnerLiked(ownerId) {
     return Boolean(this._data.likes.findIndex(item => item._id === ownerId) + 1);
   }
 
-  setLikesCount(count) {
+  setCountLikes(count) {
     this._element.querySelector('.element__likes-count').textContent = count;
   }
 
@@ -38,12 +38,12 @@ export default class Card {
     this._isOwenLiked = true;
   }
 
-  removeLike() {
+  delLike() {
     this.elementLike.classList.remove('element__like_active');
     this._isOwenLiked = false;
   }
 
-  removeTrash() {
+  delTrashElement() {
     this._element.querySelector('.element__trash').remove();
   }
   
@@ -85,7 +85,6 @@ export default class Card {
   }
 
   _handleLikeElement(evt) {
-    // evt.currentTarget.classList.toggle('element__like_active');
     this._setCardLiked();
   }
 

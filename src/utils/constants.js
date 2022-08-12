@@ -9,6 +9,20 @@ export const validationConfig = {
   errorClass: 'form__input-error_active',
 };
 
+export const apiOptions = {
+  baseUrl: baseUrl,
+  headers: {
+    authorization: token,
+    'Content-Type': 'application/json'
+  }
+}
+
+export const userProfileSelectors = {
+  userName: '.profile__name',
+  userAbout: '.profile__about',
+  userAvatart: '.profile__avatar',
+}
+
 export const elementTemplate = '#element-template';
 export const elementsSelector = '.elements';
 

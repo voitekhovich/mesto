@@ -11,6 +11,10 @@ export default class Popup {
     }
   }
 
+  getPopup() {
+    return this._popup;
+  }
+
   open() {
     document.addEventListener('keydown', this._escHandler);
     this._popup.classList.add('popup_visible');

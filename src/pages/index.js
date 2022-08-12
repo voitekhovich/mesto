@@ -11,84 +11,75 @@ import UserInfo from '../components/UserInfo.js';
 import {
   elementsSelector,
   validationConfig,
+  apiOptions,
   elementTemplate,
   profileButtonEdit,
   profileButtonAdd,
   profileAvatarEdit,
-  token,
-  baseUrl
+  userProfileSelectors,
 } from '../utils/constants.js';
 
-const api = new Api(
-  {
-    baseUrl: baseUrl,
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    }
-  }
-)
+const api = new Api(apiOptions);
+const userInfo = new UserInfo(userProfileSelectors)
+
+function errorOutput(err) {
+  console.log(err);
+}
 
 // Popup редактирование профиля
 
-const userInfo = new UserInfo(
-  {
-    userName: '.profile__name',
-    userAbout: '.profile__about',
-    userAvatart: '.profile__avatar',
-  })
+const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
+  updateUserInfo(formData);
+});
+popupEdit.setEventListeners();
 
-api.getOwnerUser()
-  .then(data => {
-    userInfo.setUserInfo(data);
-    userInfo.setUserAvatar(data);
-  })
+const inputName = popupEdit.getPopup().querySelector('.form__input_type_name');
+const inputAbout = popupEdit.getPopup().querySelector('.form__input_type_about');
 
-function userDataUpdate(newData) {
+function updateUserInfo(newData) {
   editFormValidator.disableSubmitButton();
-  api.setOwnerUser(newData)
+  api.setUserInfo(newData)
     .then(data => {
       userInfo.setUserInfo(data);
     })
-    .catch((error) => console.log(error))
+    .catch((err) => errorOutput(err))
     .finally(() => {
       popupEdit.close();
     })
 }
 
-const popupEdit = new PopupWithForm('.popup_edit', (formData) => {
-  userDataUpdate(formData);
-})
-
-popupEdit.setEventListeners();
-const inputName = popupEdit._popup.querySelector('.form__input_type_name');
-const inputAbout = popupEdit._popup.querySelector('.form__input_type_about');
+api.getUserInfo()
+  .then(data => {
+    userInfo.setUserInfo(data);
+    userInfo.setAvatar(data);
+  })
+  .catch((err) => errorOutput(err))
 
 profileButtonEdit.addEventListener('click', () => {
-  const userData = userInfo.getUserInfo()
-  inputName.value = userData.name;
-  inputAbout.value = userData.about;
+  inputName.value = userInfo.getUserInfo().name;
+  inputAbout.value = userInfo.getUserInfo().about;
   editFormValidator.disableSubmitButton();
   popupEdit.open();
 });
 
 // Popup изменения аватара
 
-function userAvatarUpdate(newData) {
+const popupAvatar = new PopupWithForm('.popup_avatar', formData => {
+  updateUserAvatar(formData);
+})
+popupAvatar.setEventListeners();
+
+function updateUserAvatar(userData) {
   editFormAvatarValidator.disableSubmitButton();
-  api.setAvatar(newData.avatar)
+  api.setAvatar(userData.avatar)
     .then(data => {
-      userInfo.setUserAvatar(data);
+      userInfo.setAvatar(data);
     })
+    .catch((err) => errorOutput(err))
     .finally(() => {
       popupAvatar.close();
     })
 }
-
-const popupAvatar = new PopupWithForm('.popup_avatar', formData => {
-  userAvatarUpdate(formData);
-})
-popupAvatar.setEventListeners();
 
 profileAvatarEdit.addEventListener('click', () => {
   editFormAvatarValidator.disableSubmitButton();
@@ -97,34 +88,40 @@ profileAvatarEdit.addEventListener('click', () => {
 
 // Наполнение страницы карточками
 
-function getOwnerTrash(card) {
-  return card._data.owner._id === userInfo.getUserId();
+const cardsList = new Section(
+  {
+    items: [],
+    renderer: data => cardsList.addItem(createNewCard(data))
+  }, elementsSelector);
+
+function isOwnerTrash(card) {
+  return card._data.owner._id === userInfo.getId();
 }
 
-function getOwnerLike(card) {
-  const isLike = card._data.likes.find(item => item._id === userInfo.getUserId());
+function isOwnerLike(card) {
+  const isLike = card._data.likes.find(item => item._id === userInfo.getId());
   if (isLike) {
     card.setLike();
   } else {
-    card.removeLike();
+    card.delLike();
   }
 }
 
-function setCardLiked(card) {
+function setLike(card) {
   if (card._isOwenLiked) {
     api.delLikes(card._data._id)
       .then(data => {
-        card.setLikesCount(data.likes.length);
-        card.removeLike();
-    })
-    card._element.querySelector('.element__like').classList.remove('element__like_active');
+        card.setCountLikes(data.likes.length);
+        card.delLike();
+      })
+      .catch((err) => errorOutput(err))
   } else {
-    api.setLikes(card._data._id)
+    api.setLike(card._data._id)
       .then(data => {
-        card.setLikesCount(data.likes.length);
+        card.setCountLikes(data.likes.length);
         card.setLike();
       })
-    card._element.querySelector('.element__like').classList.add('element__like_active');
+      .catch((err) => errorOutput(err))
   }
 }
 
@@ -132,25 +129,19 @@ function createNewCard(data){
   const card = new Card(data, elementTemplate,
     () => popupImage.open({src: card._data.link, alt: card._data.name}),
     () => popupDelete.open(card),
-    () => getOwnerTrash(card),
-    () => getOwnerLike(card),
-    () => setCardLiked(card),
+    () => isOwnerTrash(card),
+    () => isOwnerLike(card),
+    () => setLike(card),
   );
   return card.generateCard();
 }
-
-const cardsList = new Section(
-  {
-    items: [],
-    renderer: data => cardsList.addItem(createNewCard(data))
-  }, elementsSelector);
 
 api.getInitialCards()
   .then(data => {
     cardsList.setItems(data.reverse());
     cardsList.rendererItems();
-    // console.log(data);
-  })
+    })
+  .catch((err) => errorOutput(err))
 
 // Popup с изображением карточки
 
@@ -159,20 +150,20 @@ popupImage.setEventListeners();
 
 // Popup добавления карточки
 
+const popupAdd = new PopupWithForm('.popup_add', formData => addNewCard(formData));
+popupAdd.setEventListeners();
+
 function addNewCard(card) {
   addFormValidator.disableSubmitButton();
-  api.setCard(card)
+  api.addCard(card)
     .then(data => {
       cardsList.addItem(createNewCard(data));
     })
+    .catch((err) => errorOutput(err))
     .finally(() => {
       popupAdd.close();
     })
 }
-
-const popupAdd = new PopupWithForm('.popup_add', formData => addNewCard(formData))
-
-popupAdd.setEventListeners();
 
 profileButtonAdd.addEventListener('click', () => {
   addFormValidator.disableSubmitButton();
@@ -187,8 +178,9 @@ const popupDelete = new PopupWithConfirmation(
     api.delCard(card._data._id)
       .then(data => {
         card._element.remove();
-      })
-    }
+    })
+    .catch((err) => errorOutput(err))
+  }
 )
 
 popupDelete.setEventListeners();

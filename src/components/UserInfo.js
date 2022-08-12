@@ -6,8 +6,12 @@ export default class UserInfo {
     this._elementAvatar = document.querySelector(selectors.userAvatart);
   }
 
-  getUserId() {
+  getId() {
     return this._id;
+  }
+
+  setAvatar(userData) {
+    this._elementAvatar.src = userData.avatar;
   }
 
   getUserInfo() {
@@ -21,11 +25,6 @@ export default class UserInfo {
     this._elementName.textContent = userData.name;
     this._elementAbout.textContent = userData.about;
     this._id = userData._id;
-  }
-
-  setUserAvatar(userData) {
-    this._elementAvatar.src = userData.avatar;
-    // this._elementAvatar.alt = userData.name;
   }
 
 }
