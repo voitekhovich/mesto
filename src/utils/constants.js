@@ -1,5 +1,9 @@
 export const token = '517ca562-c193-4fa0-98e3-f69b3e71bc2a';
 export const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-47'
+export const headers = {
+  authorization: token,
+  'Content-Type': 'application/json'
+}
 
 export const validationConfig = {
   inputSelector: '.form__input',
@@ -8,14 +12,6 @@ export const validationConfig = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active',
 };
-
-export const apiOptions = {
-  baseUrl: baseUrl,
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
-  }
-}
 
 export const userProfileSelectors = {
   userName: '.profile__name',

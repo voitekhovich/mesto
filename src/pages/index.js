@@ -11,7 +11,8 @@ import UserInfo from '../components/UserInfo.js';
 import {
   elementsSelector,
   validationConfig,
-  apiOptions,
+  baseUrl,
+  headers,
   elementTemplate,
   profileButtonEdit,
   profileButtonAdd,
@@ -21,7 +22,7 @@ import {
   formInputList
 } from '../utils/constants.js';
 
-const api = new Api(apiOptions);
+const api = new Api({baseUrl, headers});
 const userInfo = new UserInfo(userProfileSelectors)
 
 function errorOutput(err) {
@@ -43,11 +44,10 @@ function updateUserInfo(newData) {
   api.setUserInfo(newData)
     .then(data => {
       userInfo.setUserInfo(data);
-    })
-    .catch((err) => errorOutput(err))
-    .finally(() => {
       popupEdit.close();
     })
+    .catch((err) => errorOutput(err))
+    .finally(() => popupEdit.renderLoading(false))
 }
 
 profileButtonEdit.addEventListener('click', () => {
@@ -69,11 +69,10 @@ function updateUserAvatar(userData) {
   api.setAvatar(userData.avatar)
     .then(data => {
       userInfo.setAvatar(data);
-    })
-    .catch((err) => errorOutput(err))
-    .finally(() => {
       popupAvatar.close();
     })
+    .catch((err) => errorOutput(err))
+    .finally(() => popupAvatar.renderLoading(false))
 }
 
 profileAvatarEdit.addEventListener('click', () => {
@@ -90,11 +89,11 @@ const cardsList = new Section(
   }, elementsSelector);
 
 function isOwnerTrash(card) {
-  return card._data.owner._id === userInfo.getId();
+  return card.data.owner._id === userInfo.getId();
 }
 
 function isOwnerLike(card) {
-  const isLike = card._data.likes.find(item => item._id === userInfo.getId());
+  const isLike = card.data.likes.find(item => item._id === userInfo.getId());
   if (isLike) {
     card.setLike();
   } else {
@@ -103,17 +102,17 @@ function isOwnerLike(card) {
 }
 
 function setLike(card) {
-  if (card._isOwenLiked) {
-    api.delLikes(card._data._id)
+  if (card.isOwenLiked) {
+    api.delLikes(card.data._id)
       .then(data => {
-        card.setCountLikes(data.likes.length);
+        card.setLikeCount(data.likes.length);
         card.delLike();
       })
       .catch((err) => errorOutput(err))
   } else {
-    api.setLike(card._data._id)
+    api.setLike(card.data._id)
       .then(data => {
-        card.setCountLikes(data.likes.length);
+        card.setLikeCount(data.likes.length);
         card.setLike();
       })
       .catch((err) => errorOutput(err))
@@ -122,7 +121,7 @@ function setLike(card) {
 
 function createNewCard(data){
   const card = new Card(data, elementTemplate,
-    () => popupImage.open({src: card._data.link, alt: card._data.name}),
+    () => popupImage.open({src: card.data.link, alt: card.data.name}),
     () => popupDelete.open(card),
     () => isOwnerTrash(card),
     () => isOwnerLike(card),
@@ -161,11 +160,10 @@ function addNewCard(card) {
   api.addCard(card)
     .then(data => {
       cardsList.addItem(createNewCard(data));
-    })
-    .catch((err) => errorOutput(err))
-    .finally(() => {
       popupAdd.close();
     })
+    .catch((err) => errorOutput(err))
+    .finally(() => popupAdd.renderLoading(false))
 }
 
 profileButtonAdd.addEventListener('click', () => {
@@ -177,11 +175,13 @@ profileButtonAdd.addEventListener('click', () => {
 
 const popupDelete = new PopupWithConfirmation(popupList.popupDel,
   (card) => {
-    api.delCard(card._data._id)
+    api.delCard(card.data._id)
       .then(data => {
-        card._element.remove();
+        card.element.remove();
+        popupDelete.close();
     })
     .catch((err) => errorOutput(err))
+    .finally(() => popupDelete.renderLoading(false))
   }
 )
 
@@ -189,11 +189,11 @@ popupDelete.setEventListeners();
 
 // Установка валидации на формы
 
-const addFormValidator = new FormValidator(validationConfig, popupAdd.getForm());
+const addFormValidator = new FormValidator(validationConfig, popupAdd.form);
 addFormValidator.enableValidation();
 
-const editFormValidator = new FormValidator(validationConfig, popupEdit.getForm());
+const editFormValidator = new FormValidator(validationConfig, popupEdit.form);
 editFormValidator.enableValidation();
 
-const editFormAvatarValidator = new FormValidator(validationConfig, popupAvatar.getForm());
+const editFormAvatarValidator = new FormValidator(validationConfig, popupAvatar.form);
 editFormAvatarValidator.enableValidation();

@@ -61,11 +61,6 @@ export default class FormValidator {
     }
   }
 
-  static setSubmitButtonDisable(submitButton) {
-    submitButton.setAttribute('disabled', 'disabled');
-    submitButton.classList.add(FormValidator._formSubmitInactive);
-  }
-
   disableSubmitButton() {
     this._buttonElement.setAttribute('disabled', 'disabled');
     this._buttonElement.classList.add(this._config.inactiveButtonClass);

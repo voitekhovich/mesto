@@ -4,18 +4,26 @@ export default class PopupWithConfirmation extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
+
     this._formSubmit = this._popup.querySelector('.form__submit');
-    this._defaulTextSubmit = this._formSubmit.textContent;
+    this._defaulSubmitText = this._formSubmit.textContent;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._formSubmit.textContent = 'Сохранение...';
+      this.renderLoading(true);
       this._handleFormSubmit(this._card);
-      this.close();
     })
+  }
+
+  renderLoading(isLoading, loadingText='Сохранение...') {
+    if (isLoading) {
+      this._formSubmit.textContent = loadingText;
+    } else {
+      this._formSubmit.textContent = this._defaulSubmitText;
+    }
   }
 
   open(card) {
@@ -25,6 +33,5 @@ export default class PopupWithConfirmation extends Popup {
 
   close(){
     super.close();
-    this._formSubmit.textContent = this._defaulTextSubmit;
   }
 }
