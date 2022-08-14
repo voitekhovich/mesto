@@ -19,13 +19,13 @@ import {
   profileAvatarEdit,
   userProfileSelectors,
   popupList,
-  formInputList
+  formList
 } from '../utils/constants.js';
 
 const api = new Api({baseUrl, headers});
 const userInfo = new UserInfo(userProfileSelectors)
 
-function errorOutput(err) {
+function handleError(err) {
   console.log(err);
 }
 
@@ -36,24 +36,23 @@ const popupEdit = new PopupWithForm(popupList.popupEdit, (formData) => {
 });
 popupEdit.setEventListeners();
 
-const inputName = popupEdit.getPopup().querySelector(formInputList.inputName);
-const inputAbout = popupEdit.getPopup().querySelector(formInputList.inputAbout);
-
 function updateUserInfo(newData) {
-  editFormValidator.disableSubmitButton();
+  formValidators[formList.editForm].disableSubmitButton();
   api.setUserInfo(newData)
     .then(data => {
       userInfo.setUserInfo(data);
       popupEdit.close();
     })
-    .catch((err) => errorOutput(err))
-    .finally(() => popupEdit.renderLoading(false))
+    .catch((err) => handleError(err))
+    .finally(() => {
+      popupEdit.renderLoading(false);
+      formValidators[formList.editForm].enableSubmitButton();
+    })
 }
 
 profileButtonEdit.addEventListener('click', () => {
-  inputName.value = userInfo.getUserInfo().name;
-  inputAbout.value = userInfo.getUserInfo().about;
-  editFormValidator.disableSubmitButton();
+  popupEdit.setInputValues(userInfo.getUserInfo())
+  formValidators[formList.editForm].resetValidation();
   popupEdit.open();
 });
 
@@ -65,18 +64,21 @@ const popupAvatar = new PopupWithForm(popupList.popupAvatar, formData => {
 popupAvatar.setEventListeners();
 
 function updateUserAvatar(userData) {
-  editFormAvatarValidator.disableSubmitButton();
+  formValidators[formList.editAvatarForm].disableSubmitButton();
   api.setAvatar(userData.avatar)
     .then(data => {
-      userInfo.setAvatar(data);
+      userInfo.setUserInfo(data);
       popupAvatar.close();
     })
-    .catch((err) => errorOutput(err))
-    .finally(() => popupAvatar.renderLoading(false))
+    .catch((err) => handleError(err))
+    .finally(() => {
+      popupAvatar.renderLoading(false);
+      formValidators[formList.editAvatarForm].enableSubmitButton();
+    })
 }
 
 profileAvatarEdit.addEventListener('click', () => {
-  editFormAvatarValidator.disableSubmitButton();
+  formValidators[formList.editAvatarForm].resetValidation();
   popupAvatar.open();
 });
 
@@ -108,14 +110,14 @@ function setLike(card) {
         card.setLikeCount(data.likes.length);
         card.delLike();
       })
-      .catch((err) => errorOutput(err))
+      .catch((err) => handleError(err))
   } else {
     api.setLike(card.data._id)
       .then(data => {
         card.setLikeCount(data.likes.length);
         card.setLike();
       })
-      .catch((err) => errorOutput(err))
+      .catch((err) => handleError(err))
   }
 }
 
@@ -138,12 +140,11 @@ Promise.all([
 ])
   .then(([user, cards]) => {
     userInfo.setUserInfo(user);
-    userInfo.setAvatar(user);
 
     cardsList.setItems(cards.reverse());
     cardsList.rendererItems();
   })
-  .catch((err) => errorOutput(err))
+  .catch((err) => handleError(err))
 
 // Popup с изображением карточки
 
@@ -156,18 +157,21 @@ const popupAdd = new PopupWithForm(popupList.popupAdd, formData => addNewCard(fo
 popupAdd.setEventListeners();
 
 function addNewCard(card) {
-  addFormValidator.disableSubmitButton();
+  formValidators[formList.addForm].disableSubmitButton();
   api.addCard(card)
     .then(data => {
       cardsList.addItem(createNewCard(data));
       popupAdd.close();
     })
-    .catch((err) => errorOutput(err))
-    .finally(() => popupAdd.renderLoading(false))
+    .catch((err) => handleError(err))
+    .finally(() => {
+      popupAdd.renderLoading(false);
+      formValidators[formList.addForm].enableSubmitButton();
+    })
 }
 
 profileButtonAdd.addEventListener('click', () => {
-  addFormValidator.disableSubmitButton();
+  formValidators[formList.addForm].resetValidation();
   popupAdd.open();
 });
 
@@ -180,7 +184,7 @@ const popupDelete = new PopupWithConfirmation(popupList.popupDel,
         card.element.remove();
         popupDelete.close();
     })
-    .catch((err) => errorOutput(err))
+    .catch((err) => handleError(err))
     .finally(() => popupDelete.renderLoading(false))
   }
 )
@@ -189,11 +193,17 @@ popupDelete.setEventListeners();
 
 // Установка валидации на формы
 
-const addFormValidator = new FormValidator(validationConfig, popupAdd.form);
-addFormValidator.enableValidation();
+const formValidators = {}
 
-const editFormValidator = new FormValidator(validationConfig, popupEdit.form);
-editFormValidator.enableValidation();
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
 
-const editFormAvatarValidator = new FormValidator(validationConfig, popupAvatar.form);
-editFormAvatarValidator.enableValidation();
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);

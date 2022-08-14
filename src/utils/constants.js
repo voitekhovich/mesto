@@ -6,6 +6,7 @@ export const headers = {
 }
 
 export const validationConfig = {
+  formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'form__submit_inactive',
@@ -17,6 +18,12 @@ export const userProfileSelectors = {
   userName: '.profile__name',
   userAbout: '.profile__about',
   userAvatart: '.profile__avatar',
+}
+
+export const formList = {
+  editAvatarForm: 'edit-form-avatar',
+  addForm: 'add-form',
+  editForm: 'edit-form',
 }
 
 export const elementTemplate = '#element-template';
@@ -32,9 +39,4 @@ export const popupList = {
   popupImage: '.popup_image',
   popupAdd: '.popup_add',
   popupDel: '.popup_del'
-}
-
-export const formInputList = {
-  inputName: '.form__input_type_name',
-  inputAbout: '.form__input_type_about'
 }

@@ -10,10 +10,6 @@ export default class UserInfo {
     return this._id;
   }
 
-  setAvatar(userData) {
-    this._elementAvatar.src = userData.avatar;
-  }
-
   getUserInfo() {
     return {
       name: this._elementName.textContent,
@@ -21,10 +17,11 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo(userData) {
-    this._elementName.textContent = userData.name;
-    this._elementAbout.textContent = userData.about;
-    this._id = userData._id;
+  setUserInfo({ name, about, avatar, _id }) {
+    this._elementName.textContent = name;
+    this._elementAbout.textContent = about;
+    this._elementAvatar.src = avatar;
+    this._id = _id;
   }
 
 }

@@ -18,7 +18,7 @@ export default class PopupWithConfirmation extends Popup {
     })
   }
 
-  renderLoading(isLoading, loadingText='Сохранение...') {
+  renderLoading(isLoading, loadingText='Удаление...') {
     if (isLoading) {
       this._formSubmit.textContent = loadingText;
     } else {
@@ -31,7 +31,4 @@ export default class PopupWithConfirmation extends Popup {
     super.open();
   }
 
-  close(){
-    super.close();
-  }
 }
