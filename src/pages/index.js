@@ -160,7 +160,7 @@ function addNewCard(card) {
   formValidators[formList.addForm].disableSubmitButton();
   api.addCard(card)
     .then(data => {
-      cardsList.addItem(createNewCard(data));
+      cardsList.rendererItem(data);
       popupAdd.close();
     })
     .catch((err) => handleError(err))
