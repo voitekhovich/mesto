@@ -1,4 +1,4 @@
-# Проект: Место
+# Проект: [Место](https://voitekhovich.github.io/mesto/)
 
 ## Описание
 
